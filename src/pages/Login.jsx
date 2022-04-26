@@ -1,7 +1,8 @@
 import React, { useContext } from 'react';
+import propTypes from 'prop-types';
 import AppContext from '../contexts/AppContext';
 
-const Login = () => {
+const Login = ({ history }) => {
   const {
     email,
     setEmail,
@@ -27,20 +28,25 @@ const Login = () => {
         placeholder="Password"
         data-testid="password-input"
         value={ password }
-        onChange={ (e) => {
-          setPassword(e.target.value);
-        } }
+        onChange={ ({ target: { value } }) => setPassword(value) }
       />
 
       <button
         type="button"
         data-testid="login-submit-btn"
         disabled={ !(regex.test(email) && password.length > six) }
+        onClick={ () => {
+          history.push('/foods');
+        } }
       >
         Enter
       </button>
     </div>
   );
 };
+
+Login.propTypes = {
+  push: propTypes.func,
+}.isRequired;
 
 export default Login;
