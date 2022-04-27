@@ -1,6 +1,7 @@
 import React, { useContext } from 'react';
 import propTypes from 'prop-types';
 import AppContext from '../contexts/AppContext';
+import saveLocalStorage from '../helpers/saveLocalStorage';
 
 const Login = ({ history }) => {
   const {
@@ -37,6 +38,9 @@ const Login = ({ history }) => {
         disabled={ !(regex.test(email) && password.length > six) }
         onClick={ () => {
           history.push('/foods');
+          saveLocalStorage('mealsToken', 1);
+          saveLocalStorage('cocktailsToken', 1);
+          saveLocalStorage('user', { email });
         } }
       >
         Enter
