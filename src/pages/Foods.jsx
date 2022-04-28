@@ -1,8 +1,9 @@
 import React from 'react';
+import Header from '../components/Header';
 
 const Foods = () => (
   <div>
-    <h1>foods</h1>
+    <Header title="Foods" haveSearch="true" />
   </div>
 );
 

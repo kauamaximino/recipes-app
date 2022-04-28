@@ -1,8 +1,9 @@
 import React from 'react';
+import Header from '../components/Header';
 
 const Explore = () => (
   <div>
-    <h1>Explore</h1>
+    <Header title="Explore" />
   </div>
 );
 
