@@ -5,38 +5,90 @@ const DRINK_INGREDIENT = (ingredient) => (`https://www.thecocktaildb.com/api/jso
 const DRINK_NAME = (name) => (`https://www.thecocktaildb.com/api/json/v1/1/search.php?s=${name}`);
 const DRINK_LETTER = (letter) => (`https://www.thecocktaildb.com/api/json/v1/1/search.php?f=${letter}`);
 
-export const getFoodByIngredient = async (ingredient) => {
+const getFoodByIngredient = async (ingredient) => {
   const response = await fetch(FOOD_INGREDIENT(ingredient));
   const data = await response.json();
   return response.ok ? Promise.resolve(data.meals) : Promise.reject(json);
 };
 
-export const getFoodByName = async (name) => {
+const getFoodByName = async (name) => {
   const response = await fetch(FOOD_NAME(name));
   const data = await response.json();
   return response.ok ? Promise.resolve(data.meals) : Promise.reject(json);
 };
 
-export const getFoodByLetter = async (letter) => {
+const getFoodByLetter = async (letter) => {
   const response = await fetch(FOOD_LETTER(letter));
   const data = await response.json();
   return response.ok ? Promise.resolve(data.meals) : Promise.reject(json);
 };
 
-export const getDrinkByIngredient = async (ingredient) => {
+const getDrinkByIngredient = async (ingredient) => {
   const response = await fetch(DRINK_INGREDIENT(ingredient));
   const data = await response.json();
-  return response.ok ? Promise.resolve(data.meals) : Promise.reject(json);
+  return response.ok ? Promise.resolve(data.drinks) : Promise.reject(json);
 };
 
-export const getDrinkByName = async (name) => {
+const getDrinkByName = async (name) => {
   const response = await fetch(DRINK_NAME(name));
   const data = await response.json();
-  return response.ok ? Promise.resolve(data.meals) : Promise.reject(json);
+  return response.ok ? Promise.resolve(data.drinks) : Promise.reject(json);
 };
 
-export const getDrinkByLetter = async (letter) => {
+const getDrinkByLetter = async (letter) => {
   const response = await fetch(DRINK_LETTER(letter));
   const data = await response.json();
-  return response.ok ? Promise.resolve(data.meals) : Promise.reject(json);
+  return response.ok ? Promise.resolve(data.drinks) : Promise.reject(json);
 };
+
+const handleFoods = async (radio, input) => {
+  if (radio === 'ingredient') {
+    const resultFoodIngredient = await getFoodByIngredient(input);
+    return resultFoodIngredient;
+  }
+  if (radio === 'name') {
+    const resultName = await getFoodByName(input);
+    return resultName;
+  }
+  if (radio === 'letter' && input.length === 1) {
+    const resultLetter = await getFoodByLetter(input);
+    return resultLetter;
+  }
+  if (radio === 'letter' && input.length > 1) {
+    global.alert('Your search must have only 1 (one) character');
+  } else {
+    global.alert('Sorry, we haven\'t found any recipes for these filters');
+  }
+};
+
+const handleDrinks = async (radio, input) => {
+  if (radio === 'ingredient') {
+    const resultIngredient = await getDrinkByIngredient(input);
+    return resultIngredient;
+  }
+  if (radio === 'name') {
+    const resultName = await getDrinkByName(input);
+    return resultName;
+  }
+  if (radio === 'letter' && input.length === 1) {
+    const resultLetter = await getDrinkByLetter(input);
+    return resultLetter;
+  }
+  if (radio === 'letter' && input.length > 1) {
+    global.alert('Your search must have only 1 (one) character');
+  } else {
+    global.alert('Sorry, we haven\'t found any recipes for these filters');
+  }
+};
+
+const handleAPI = async (radio, input, title) => {
+  if (title === 'Foods') {
+    await handleFoods(radio, input);
+  }
+
+  if (title === 'Drinks') {
+    await handleDrinks(radio, input);
+  }
+};
+
+export default handleAPI;

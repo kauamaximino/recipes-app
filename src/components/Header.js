@@ -37,7 +37,7 @@ function Header({ title, haveSearch }) {
 
       </header>
       {(search)
-        && <Search />}
+        && <Search title={ title } />}
     </div>
   );
 }

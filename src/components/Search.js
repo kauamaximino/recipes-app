@@ -1,37 +1,13 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
-import { getFoodByIngredient,
-  getFoodByName,
-  getFoodByLetter,
-} from '../services/index';
+import handleAPI from '../services/index';
 
-function Search() {
+function Search({ title }) {
   const [optionRadio, setOptionRadio] = useState('');
   const [inputSearch, setInputSearch] = useState('');
 
   const handleRadioButton = ({ target: { value } }) => {
     setOptionRadio(value);
-  };
-
-  const handleSearch = async (radio, input) => {
-    if (radio === 'ingredient') {
-      const result = await getFoodByIngredient(input);
-      return result;
-    }
-
-    if (radio === 'name') {
-      const result = await getFoodByName(input);
-      return result;
-    }
-
-    if (radio === 'letter' && input.length === 1) {
-      const result = await getFoodByLetter(input);
-      return result;
-    }
-    if (radio === 'letter' && input.length > 1) {
-      global.alert('Your search must have only 1 (one) character');
-      setInputSearch('');
-    }
   };
 
   return (
@@ -86,7 +62,7 @@ function Search() {
         <button
           type="button"
           data-testid="exec-search-btn"
-          onClick={ async () => handleSearch(optionRadio, inputSearch) }
+          onClick={ () => handleAPI(optionRadio, inputSearch, title) }
         >
           Search
 
