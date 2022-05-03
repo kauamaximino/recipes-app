@@ -26,6 +26,7 @@ const getFoodByLetter = async (letter) => {
 const getDrinkByIngredient = async (ingredient) => {
   const response = await fetch(DRINK_INGREDIENT(ingredient));
   const data = await response.json();
+  console.log(data);
   return response.ok ? Promise.resolve(data.drinks) : Promise.reject(json);
 };
 
@@ -83,11 +84,13 @@ const handleDrinks = async (radio, input) => {
 
 const handleAPI = async (radio, input, title) => {
   if (title === 'Foods') {
-    await handleFoods(radio, input);
+    const response = await handleFoods(radio, input);
+    return response;
   }
 
   if (title === 'Drinks') {
-    await handleDrinks(radio, input);
+    const response = await handleDrinks(radio, input);
+    return response;
   }
 };
 

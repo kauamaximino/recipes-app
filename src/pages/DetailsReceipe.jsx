@@ -1,9 +1,16 @@
 import React from 'react';
+import propTypes from 'prop-types';
 
-const DetailsReceipe = () => (
+const DetailsReceipe = ({ match: { params: { id } } }) => (
   <div>
-    <h1>Details Receipe</h1>
+    <h1>
+      {id}
+    </h1>
   </div>
 );
+
+DetailsReceipe.propTypes = {
+  id: propTypes.string,
+}.isRequired;
 
 export default DetailsReceipe;

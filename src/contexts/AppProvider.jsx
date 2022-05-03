@@ -5,8 +5,22 @@ import AppContext from './AppContext';
 function AppProvider({ children }) {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [optionRadio, setOptionRadio] = useState('');
+  const [inputSearch, setInputSearch] = useState('');
+  const [recipesReturn, setRecipesReturn] = useState([]);
 
-  const data = { email, setEmail, password, setPassword };
+  const data = {
+    email,
+    setEmail,
+    password,
+    setPassword,
+    optionRadio,
+    setOptionRadio,
+    inputSearch,
+    setInputSearch,
+    recipesReturn,
+    setRecipesReturn,
+  };
 
   return (
     <AppContext.Provider value={ data }>
