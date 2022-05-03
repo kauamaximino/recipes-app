@@ -1,10 +1,23 @@
-import React, { useState } from 'react';
+import React, { useContext } from 'react';
 import PropTypes from 'prop-types';
 import handleAPI from '../services/index';
+import AppContext from '../contexts/AppContext';
 
 function Search({ title }) {
-  const [optionRadio, setOptionRadio] = useState('');
-  const [inputSearch, setInputSearch] = useState('');
+  const {
+    optionRadio,
+    setOptionRadio,
+    inputSearch,
+    setInputSearch,
+    setRecipesReturn,
+  } = useContext(AppContext);
+
+  const result = async () => {
+    // console.log('chegou aqui');
+    const response = await handleAPI(optionRadio, inputSearch, title);
+    console.log(response);
+    setRecipesReturn(response);
+  };
 
   const handleRadioButton = ({ target: { value } }) => {
     setOptionRadio(value);
@@ -62,11 +75,11 @@ function Search({ title }) {
         <button
           type="button"
           data-testid="exec-search-btn"
-          onClick={ () => handleAPI(optionRadio, inputSearch, title) }
+          onClick={ () => result() }
         >
           Search
-
         </button>
+
       </div>
 
     </div>

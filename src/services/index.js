@@ -83,11 +83,13 @@ const handleDrinks = async (radio, input) => {
 
 const handleAPI = async (radio, input, title) => {
   if (title === 'Foods') {
-    await handleFoods(radio, input);
+    const response = await handleFoods(radio, input);
+    return response;
   }
 
   if (title === 'Drinks') {
-    await handleDrinks(radio, input);
+    const response = await handleDrinks(radio, input);
+    return response;
   }
 };
 
