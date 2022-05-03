@@ -1,6 +1,6 @@
 import React, { useContext } from 'react';
 import PropTypes from 'prop-types';
-import handleAPI from '../services/index';
+import { handleAPI } from '../services/index';
 import AppContext from '../contexts/AppContext';
 
 function Search({ title }) {

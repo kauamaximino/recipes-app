@@ -5,6 +5,18 @@ const DRINK_INGREDIENT = (ingredient) => (`https://www.thecocktaildb.com/api/jso
 const DRINK_NAME = (name) => (`https://www.thecocktaildb.com/api/json/v1/1/search.php?s=${name}`);
 const DRINK_LETTER = (letter) => (`https://www.thecocktaildb.com/api/json/v1/1/search.php?f=${letter}`);
 
+export const getFoods = async () => {
+  const response = await fetch('https://www.themealdb.com/api/json/v1/1/search.php?s=');
+  const data = await response.json();
+  return response.ok ? Promise.resolve(data.meals) : Promise.reject(json);
+};
+
+export const getDrinks = async () => {
+  const response = await fetch('https://www.thecocktaildb.com/api/json/v1/1/search.php?s=');
+  const data = await response.json();
+  return response.ok ? Promise.resolve(data.drinks) : Promise.reject(json);
+};
+
 const getFoodByIngredient = async (ingredient) => {
   const response = await fetch(FOOD_INGREDIENT(ingredient));
   const data = await response.json();
@@ -82,7 +94,7 @@ const handleDrinks = async (radio, input) => {
   }
 };
 
-const handleAPI = async (radio, input, title) => {
+export const handleAPI = async (radio, input, title) => {
   if (title === 'Foods') {
     const response = await handleFoods(radio, input);
     return response;
@@ -93,5 +105,3 @@ const handleAPI = async (radio, input, title) => {
     return response;
   }
 };
-
-export default handleAPI;
