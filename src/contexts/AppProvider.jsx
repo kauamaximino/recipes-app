@@ -8,6 +8,7 @@ function AppProvider({ children }) {
   const [optionRadio, setOptionRadio] = useState('');
   const [inputSearch, setInputSearch] = useState('');
   const [recipesReturn, setRecipesReturn] = useState([]);
+  const [cocktailsReturn, setCocktailsReturn] = useState([]);
 
   const data = {
     email,
@@ -20,6 +21,8 @@ function AppProvider({ children }) {
     setInputSearch,
     recipesReturn,
     setRecipesReturn,
+    cocktailsReturn,
+    setCocktailsReturn,
   };
 
   return (

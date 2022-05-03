@@ -4,23 +4,23 @@ import AppContext from '../contexts/AppContext';
 
 function CardDrink() {
   const history = useHistory();
-  const { recipesReturn } = useContext(AppContext);
+  const { cocktailsReturn } = useContext(AppContext);
   const twelve = 12;
 
   useEffect(() => {
-    if (recipesReturn && recipesReturn.length === 1) {
-      history.push(`drinks/${recipesReturn[0].idDrink}`);
+    if (cocktailsReturn && cocktailsReturn.length === 1) {
+      history.push(`drinks/${cocktailsReturn[0].idDrink}`);
     }
-  }, [recipesReturn, history]);
+  }, [cocktailsReturn, history]);
 
   useEffect(() => {
-    if (!recipesReturn) {
+    if (!cocktailsReturn) {
       global.alert('Sorry, we haven\'t found any recipes for these filters.');
     }
-  }, [recipesReturn]);
+  }, [cocktailsReturn]);
   return (
     <div>
-      {recipesReturn && recipesReturn.slice(0, twelve).map((drink, index) => (
+      {cocktailsReturn && cocktailsReturn.slice(0, twelve).map((drink, index) => (
         <div
           data-testid={ `${index}-recipe-card` }
           key={ drink.idDrink }
