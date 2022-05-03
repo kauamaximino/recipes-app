@@ -7,7 +7,7 @@ function AppProvider({ children }) {
   const [password, setPassword] = useState('');
   const [optionRadio, setOptionRadio] = useState('');
   const [inputSearch, setInputSearch] = useState('');
-  const [recipesReturn, setRecipesReturn] = useState();
+  const [recipesReturn, setRecipesReturn] = useState([]);
 
   const data = {
     email,

@@ -13,9 +13,7 @@ function Search({ title }) {
   } = useContext(AppContext);
 
   const result = async () => {
-    // console.log('chegou aqui');
     const response = await handleAPI(optionRadio, inputSearch, title);
-    console.log(response);
     setRecipesReturn(response);
   };
 
