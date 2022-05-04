@@ -10,11 +10,16 @@ function Search({ title }) {
     inputSearch,
     setInputSearch,
     setRecipesReturn,
+    setCocktailsReturn,
   } = useContext(AppContext);
 
   const result = async () => {
     const response = await handleAPI(optionRadio, inputSearch, title);
-    setRecipesReturn(response);
+    if (title === 'Foods') {
+      setRecipesReturn(response);
+    } else {
+      setCocktailsReturn(response);
+    }
   };
 
   const handleRadioButton = ({ target: { value } }) => {
