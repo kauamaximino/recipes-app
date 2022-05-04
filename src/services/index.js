@@ -5,6 +5,18 @@ const DRINK_INGREDIENT = (ingredient) => (`https://www.thecocktaildb.com/api/jso
 const DRINK_NAME = (name) => (`https://www.thecocktaildb.com/api/json/v1/1/search.php?s=${name}`);
 const DRINK_LETTER = (letter) => (`https://www.thecocktaildb.com/api/json/v1/1/search.php?f=${letter}`);
 
+export const getRandomMeal = async () => {
+  const response = await fetch('https://www.themealdb.com/api/json/v1/1/random.php');
+  const data = await response.json();
+  return response.ok ? Promise.resolve(data.meals) : Promise.reject(json);
+};
+
+export const getRandomDrink = async () => {
+  const response = await fetch('https://www.thecocktaildb.com/api/json/v1/1/random.php');
+  const data = await response.json();
+  return response.ok ? Promise.resolve(data.drinks) : Promise.reject(json);
+};
+
 export const getFoodsCategories = async () => {
   const response = await fetch('https://www.themealdb.com/api/json/v1/1/filter.php?c=list');
   const data = await response.json();

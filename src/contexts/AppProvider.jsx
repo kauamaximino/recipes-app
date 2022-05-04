@@ -9,6 +9,7 @@ function AppProvider({ children }) {
   const [inputSearch, setInputSearch] = useState('');
   const [recipesReturn, setRecipesReturn] = useState([]);
   const [cocktailsReturn, setCocktailsReturn] = useState([]);
+  const [randomID, setRandomID] = useState([]);
 
   const data = {
     email,
@@ -23,6 +24,8 @@ function AppProvider({ children }) {
     setRecipesReturn,
     cocktailsReturn,
     setCocktailsReturn,
+    randomID,
+    setRandomID,
   };
 
   return (
