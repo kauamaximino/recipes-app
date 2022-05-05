@@ -13,6 +13,8 @@ function AppProvider({ children }) {
   const [categoriesDrink, setCategoriesDrink] = useState([]);
   const [redirectDetailsDrinks, setRedirectDetailsDrinks] = useState(true);
   const [redirectDetailsFoods, setRedirectDetailsFoods] = useState(false);
+  const [randomID, setRandomID] = useState([]);
+
 
   const data = {
     email,
@@ -35,6 +37,8 @@ function AppProvider({ children }) {
     setRedirectDetailsDrinks,
     redirectDetailsFoods,
     setRedirectDetailsFoods,
+    randomID,
+    setRandomID,
   };
 
   return (

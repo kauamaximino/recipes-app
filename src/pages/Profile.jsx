@@ -1,12 +1,25 @@
-import React from 'react';
+import React, { useContext, useEffect } from 'react';
 import propTypes from 'prop-types';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
 import getLocalStorage from '../helpers/getLocalStorage';
+import AppContext from '../contexts/AppContext';
 
 function Profile({ history }) {
-  const jsonEmail = getLocalStorage('user');
-  const email = JSON.parse(jsonEmail);
+  const { email, setEmail } = useContext(AppContext);
+
+  useEffect(() => {
+    const getEmail = () => {
+      const jsonEmail = getLocalStorage('user');
+      const user = JSON.parse(jsonEmail);
+      if (user) {
+        setEmail(user.email);
+      } else {
+        setEmail('');
+      }
+    };
+    getEmail();
+  }, []);
 
   return (
     <div>
@@ -14,7 +27,7 @@ function Profile({ history }) {
       <Footer />
       <div>
         <p data-testid="profile-email">
-          { email.email }
+          { email }
         </p>
         <button
           data-testid="profile-done-btn"
@@ -48,7 +61,9 @@ function Profile({ history }) {
     </div>
   );
 }
+
 Profile.propTypes = {
   push: propTypes.func,
 }.isRequired;
+
 export default Profile;
