@@ -1,6 +1,6 @@
 import React, { useContext, useEffect } from 'react';
 import AppContext from '../contexts/AppContext';
-import './Recomendation.css';
+import '../Styles/Recomendation.css';
 // import { useHistory } from 'react-router-dom';
 
 function RecomendationFood() {
