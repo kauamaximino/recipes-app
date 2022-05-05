@@ -11,6 +11,7 @@ function Search({ title }) {
     setInputSearch,
     setRecipesReturn,
     setCocktailsReturn,
+    // setRedirectDetailsFoods,
   } = useContext(AppContext);
 
   const result = async () => {
@@ -78,7 +79,10 @@ function Search({ title }) {
         <button
           type="button"
           data-testid="exec-search-btn"
-          onClick={ () => result() }
+          onClick={ () => {
+            result();
+          } }
+
         >
           Search
         </button>

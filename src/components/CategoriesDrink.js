@@ -32,8 +32,8 @@ function CategoriesDrink() {
             type="button"
             data-testid={ dataTest }
             onClick={ async () => {
-              const result = await filterCategoriesDrinks(category.strCategory);
-              setCocktailsReturn(result.drinks);
+              const { drinks } = await filterCategoriesDrinks(category.strCategory);
+              setCocktailsReturn(drinks);
               setRedirectDetailsDrinks(false);
             } }
           >

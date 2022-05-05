@@ -1,12 +1,14 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import profileIcon from '../images/profileIcon.svg';
 import searchIcon from '../images/searchIcon.svg';
 import Search from './Search';
+import AppContext from '../contexts/AppContext';
 
 function Header({ title, haveSearch }) {
   const [search, setSearch] = useState(false);
+  const { setRedirectDetailsFoods } = useContext(AppContext);
 
   return (
     <div>
@@ -26,7 +28,10 @@ function Header({ title, haveSearch }) {
 
             <button
               type="button"
-              onClick={ () => setSearch((prevState) => !prevState) }
+              onClick={ () => {
+                setSearch((prevState) => !prevState);
+                setRedirectDetailsFoods(true);
+              } }
 
             >
               <img src={ searchIcon } alt="ícone pesquisa" data-testid="search-top-btn" />

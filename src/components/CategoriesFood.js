@@ -24,11 +24,11 @@ function CategoriesFood() {
       {categoriesFood && categoriesFood.slice(0, five).map((category, index) => (
         <button
           key={ index }
+          name="category-button"
           type="button"
           data-testid={ `${category.strCategory}-category-filter` }
           onClick={ async () => {
             const { meals } = await filterCategoriesFoods(category.strCategory);
-            console.log(meals);
             setRecipesReturn(meals);
             setRedirectDetailsFoods(false);
           } }

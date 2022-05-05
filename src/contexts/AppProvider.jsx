@@ -12,7 +12,7 @@ function AppProvider({ children }) {
   const [categoriesFood, setCategoriesFood] = useState([]);
   const [categoriesDrink, setCategoriesDrink] = useState([]);
   const [redirectDetailsDrinks, setRedirectDetailsDrinks] = useState(true);
-  const [redirectDetailsFoods, setRedirectDetailsFoods] = useState(true);
+  const [redirectDetailsFoods, setRedirectDetailsFoods] = useState(false);
 
   const data = {
     email,
