@@ -5,6 +5,29 @@ const DRINK_INGREDIENT = (ingredient) => (`https://www.thecocktaildb.com/api/jso
 const DRINK_NAME = (name) => (`https://www.thecocktaildb.com/api/json/v1/1/search.php?s=${name}`);
 const DRINK_LETTER = (letter) => (`https://www.thecocktaildb.com/api/json/v1/1/search.php?f=${letter}`);
 
+export const getFoodByIngredientList = async () => {
+  const response = await fetch('https://www.themealdb.com/api/json/v1/1/list.php?i=list');
+  const data = await response.json();
+  return response.ok ? Promise.resolve(data) : Promise.reject(json);
+};
+
+export const getDrinkByIngredientList = async () => {
+  const response = await fetch('https://www.thecocktaildb.com/api/json/v1/1/list.php?i=list');
+  const data = await response.json();
+  return response.ok ? Promise.resolve(data) : Promise.reject(json);
+};
+
+export const getFoodById = async (id) => {
+  const response = await fetch(`https://www.themealdb.com/api/json/v1/1/lookup.php?i=${id}`);
+  const data = await response.json();
+  return response.ok ? Promise.resolve(data.meals[0]) : Promise.reject(json);
+};
+export const getDrinkById = async (id) => {
+  const response = await fetch(`https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=${id}`);
+  const data = await response.json();
+  return response.ok ? Promise.resolve(data) : Promise.reject(json);
+};
+
 export const getRandomMeal = async () => {
   const response = await fetch('https://www.themealdb.com/api/json/v1/1/random.php');
   const data = await response.json();
@@ -15,18 +38,6 @@ export const getRandomDrink = async () => {
   const response = await fetch('https://www.thecocktaildb.com/api/json/v1/1/random.php');
   const data = await response.json();
   return response.ok ? Promise.resolve(data.drinks) : Promise.reject(json);
-};
-
-export const getFoodsCategories = async () => {
-  const response = await fetch('https://www.themealdb.com/api/json/v1/1/filter.php?c=list');
-  const data = await response.json();
-  return response.ok ? Promise.resolve(data) : Promise.reject(json);
-};
-
-export const getDrinksCategories = async () => {
-  const response = await fetch('https://ww.thecocktaildb.com/api/json/v1/1/filter.php?c=list');
-  const data = await response.json();
-  return response.ok ? Promise.resolve(data) : Promise.reject(json);
 };
 
 export const getFoodById = async (id) => {
@@ -53,7 +64,7 @@ export const getDrinks = async () => {
   return response.ok ? Promise.resolve(data.drinks) : Promise.reject(json);
 };
 
-const getFoodByIngredient = async (ingredient) => {
+export const getFoodByIngredient = async (ingredient) => {
   const response = await fetch(FOOD_INGREDIENT(ingredient));
   const data = await response.json();
   return response.ok ? Promise.resolve(data.meals) : Promise.reject(json);
@@ -71,7 +82,7 @@ const getFoodByLetter = async (letter) => {
   return response.ok ? Promise.resolve(data.meals) : Promise.reject(json);
 };
 
-const getDrinkByIngredient = async (ingredient) => {
+export const getDrinkByIngredient = async (ingredient) => {
   const response = await fetch(DRINK_INGREDIENT(ingredient));
   const data = await response.json();
   return response.ok ? Promise.resolve(data.drinks) : Promise.reject(json);
