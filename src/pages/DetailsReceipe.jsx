@@ -4,7 +4,7 @@ import propTypes from 'prop-types';
 import { getFoodById, getDrinks } from '../services/index';
 import RecomendationDrink from '../components/RecomendationDrink';
 import AppContext from '../contexts/AppContext';
-import '../Styles/Details.css';
+import '../style/Details.css';
 
 function DetailsReceipe({ match: { params: { id } } }) {
   const [recipe, setRecipe] = useState({});
