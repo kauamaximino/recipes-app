@@ -40,6 +40,18 @@ export const getRandomDrink = async () => {
   return response.ok ? Promise.resolve(data.drinks) : Promise.reject(json);
 };
 
+export const getFoodById = async (id) => {
+  const response = await fetch(`https://www.themealdb.com/api/json/v1/1/lookup.php?i=${id}`);
+  const data = await response.json();
+  return response.ok ? Promise.resolve(data.meals[0]) : Promise.reject(json);
+};
+
+export const getDrinkById = async (id) => {
+  const response = await fetch(`https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=${id}`);
+  const data = await response.json();
+  return response.ok ? Promise.resolve(data.drinks[0]) : Promise.reject(json);
+};
+
 export const getFoods = async () => {
   const response = await fetch('https://www.themealdb.com/api/json/v1/1/search.php?s=');
   const data = await response.json();
