@@ -61,6 +61,7 @@ function Profile({ history }) {
     </div>
   );
 }
+
 Profile.propTypes = {
   push: propTypes.func,
 }.isRequired;

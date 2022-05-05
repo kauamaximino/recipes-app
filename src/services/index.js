@@ -62,7 +62,6 @@ const getFoodByLetter = async (letter) => {
 const getDrinkByIngredient = async (ingredient) => {
   const response = await fetch(DRINK_INGREDIENT(ingredient));
   const data = await response.json();
-  console.log(data);
   return response.ok ? Promise.resolve(data.drinks) : Promise.reject(json);
 };
 

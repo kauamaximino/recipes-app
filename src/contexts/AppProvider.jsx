@@ -9,7 +9,12 @@ function AppProvider({ children }) {
   const [inputSearch, setInputSearch] = useState('');
   const [recipesReturn, setRecipesReturn] = useState([]);
   const [cocktailsReturn, setCocktailsReturn] = useState([]);
+  const [categoriesFood, setCategoriesFood] = useState([]);
+  const [categoriesDrink, setCategoriesDrink] = useState([]);
+  const [redirectDetailsDrinks, setRedirectDetailsDrinks] = useState(true);
+  const [redirectDetailsFoods, setRedirectDetailsFoods] = useState(false);
   const [randomID, setRandomID] = useState([]);
+
 
   const data = {
     email,
@@ -24,6 +29,14 @@ function AppProvider({ children }) {
     setRecipesReturn,
     cocktailsReturn,
     setCocktailsReturn,
+    categoriesFood,
+    setCategoriesFood,
+    categoriesDrink,
+    setCategoriesDrink,
+    redirectDetailsDrinks,
+    setRedirectDetailsDrinks,
+    redirectDetailsFoods,
+    setRedirectDetailsFoods,
     randomID,
     setRandomID,
   };

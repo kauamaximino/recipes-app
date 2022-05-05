@@ -4,14 +4,14 @@ import AppContext from '../contexts/AppContext';
 
 function CardDrink() {
   const history = useHistory();
-  const { cocktailsReturn } = useContext(AppContext);
+  const { cocktailsReturn, redirectDetailsDrinks } = useContext(AppContext);
   const twelve = 12;
 
   useEffect(() => {
-    if (cocktailsReturn && cocktailsReturn.length === 1) {
+    if (redirectDetailsDrinks && cocktailsReturn && cocktailsReturn.length === 1) {
       history.push(`drinks/${cocktailsReturn[0].idDrink}`);
     }
-  }, [cocktailsReturn, history]);
+  }, [cocktailsReturn, history, redirectDetailsDrinks]);
 
   useEffect(() => {
     if (!cocktailsReturn) {

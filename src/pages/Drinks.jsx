@@ -4,6 +4,7 @@ import Footer from '../components/Footer';
 import CardDrink from '../components/CardDrink';
 import { getDrinks } from '../services/index';
 import AppContext from '../contexts/AppContext';
+import CategoriesDrink from '../components/CategoriesDrink';
 
 function Drinks() {
   const {
@@ -22,6 +23,7 @@ function Drinks() {
 
     <div>
       <Header title="Drinks" haveSearch="true" />
+      <CategoriesDrink />
       <CardDrink />
       <Footer />
     </div>
