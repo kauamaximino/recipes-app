@@ -1,9 +1,14 @@
 import React, { useEffect, useContext } from 'react';
-import { fetchFoodsCategories } from '../services/categoriesAPI';
+import { fetchFoodsCategories, filterCategoriesFoods } from '../services/categoriesAPI';
 import AppContext from '../contexts/AppContext';
 
 function CategoriesFood() {
-  const { categoriesFood, setCategoriesFood } = useContext(AppContext);
+  const {
+    categoriesFood,
+    setCategoriesFood,
+    setRecipesReturn,
+    setRedirectDetailsFoods,
+  } = useContext(AppContext);
   const five = 5;
 
   useEffect(() => {
@@ -21,6 +26,12 @@ function CategoriesFood() {
           key={ index }
           type="button"
           data-testid={ `${category.strCategory}-category-filter` }
+          onClick={ async () => {
+            const { meals } = await filterCategoriesFoods(category.strCategory);
+            console.log(meals);
+            setRecipesReturn(meals);
+            setRedirectDetailsFoods(false);
+          } }
         >
           {category.strCategory}
         </button>

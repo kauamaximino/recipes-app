@@ -1,9 +1,14 @@
 import React, { useEffect, useContext } from 'react';
-import { fetchDrinksCategories } from '../services/categoriesAPI';
+import { fetchDrinksCategories, filterCategoriesDrinks } from '../services/categoriesAPI';
 import AppContext from '../contexts/AppContext';
 
 function CategoriesDrink() {
-  const { categoriesDrink, setCategoriesDrink } = useContext(AppContext);
+  const {
+    categoriesDrink,
+    setCategoriesDrink,
+    setCocktailsReturn,
+    setRedirectDetailsDrinks,
+  } = useContext(AppContext);
   const five = 5;
 
   useEffect(() => {
@@ -16,15 +21,26 @@ function CategoriesDrink() {
 
   return (
     <div>
-      {categoriesDrink && categoriesDrink.slice(0, five).map((category, index) => (
-        <button
-          key={ index }
-          type="button"
-          data-testid={ `${category.strCategory}-category-filter` }
-        >
-          {category.strCategory}
-        </button>
-      ))}
+      {categoriesDrink && categoriesDrink.slice(0, five).map((category, index) => {
+        let dataTest = '';
+        if (category.strCategory === 'Shake') {
+          dataTest = 'Milk / Float / Shake-category-filter';
+        } else dataTest = `${category.strCategory}-category-filter`;
+        return (
+          <button
+            key={ index }
+            type="button"
+            data-testid={ dataTest }
+            onClick={ async () => {
+              const result = await filterCategoriesDrinks(category.strCategory);
+              setCocktailsReturn(result.drinks);
+              setRedirectDetailsDrinks(false);
+            } }
+          >
+            {category.strCategory}
+          </button>
+        );
+      })}
 
     </div>
   );

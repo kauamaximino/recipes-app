@@ -11,6 +11,8 @@ function AppProvider({ children }) {
   const [cocktailsReturn, setCocktailsReturn] = useState([]);
   const [categoriesFood, setCategoriesFood] = useState([]);
   const [categoriesDrink, setCategoriesDrink] = useState([]);
+  const [redirectDetailsDrinks, setRedirectDetailsDrinks] = useState(true);
+  const [redirectDetailsFoods, setRedirectDetailsFoods] = useState(true);
 
   const data = {
     email,
@@ -29,6 +31,10 @@ function AppProvider({ children }) {
     setCategoriesFood,
     categoriesDrink,
     setCategoriesDrink,
+    redirectDetailsDrinks,
+    setRedirectDetailsDrinks,
+    redirectDetailsFoods,
+    setRedirectDetailsFoods,
   };
 
   return (
