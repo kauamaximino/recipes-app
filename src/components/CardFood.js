@@ -1,5 +1,5 @@
 import React, { useContext, useEffect } from 'react';
-import { useHistory } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import AppContext from '../contexts/AppContext';
 
 function CardFood() {
@@ -22,17 +22,21 @@ function CardFood() {
   return (
     <div>
       {recipesReturn && recipesReturn.slice(0, twelve).map((recipe, index) => (
-        <div
-          data-testid={ `${index}-recipe-card` }
+        <Link
           key={ recipe.idMeal }
+          to={ `/foods/${recipe.idMeal}` }
         >
-          <h1 data-testid={ `${index}-card-name` }>{recipe.strMeal}</h1>
-          <img
-            src={ recipe.strMealThumb }
-            alt={ recipe.strMeal }
-            data-testid={ `${index}-card-img` }
-          />
-        </div>
+          <div
+            data-testid={ `${index}-recipe-card` }
+          >
+            <h1 data-testid={ `${index}-card-name` }>{recipe.strMeal}</h1>
+            <img
+              src={ recipe.strMealThumb }
+              alt={ recipe.strMeal }
+              data-testid={ `${index}-card-img` }
+            />
+          </div>
+        </Link>
       ))}
     </div>
   );

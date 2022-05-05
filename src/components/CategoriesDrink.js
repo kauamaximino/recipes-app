@@ -8,6 +8,7 @@ function CategoriesDrink() {
     setCategoriesDrink,
     setCocktailsReturn,
     setRedirectDetailsDrinks,
+    setToggleFilterDrink,
   } = useContext(AppContext);
   const five = 5;
 
@@ -29,12 +30,17 @@ function CategoriesDrink() {
         return (
           <button
             key={ index }
+            name={ index }
             type="button"
             data-testid={ dataTest }
-            onClick={ async () => {
+            onClick={ async ({ target: { name } }) => {
               const { drinks } = await filterCategoriesDrinks(category.strCategory);
+              console.log(name);
               setCocktailsReturn(drinks);
               setRedirectDetailsDrinks(false);
+              if (name !== index) {
+                setToggleFilterDrink((prevState) => !prevState);
+              }
             } }
           >
             {category.strCategory}

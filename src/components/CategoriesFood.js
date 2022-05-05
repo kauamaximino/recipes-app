@@ -8,6 +8,7 @@ function CategoriesFood() {
     setCategoriesFood,
     setRecipesReturn,
     setRedirectDetailsFoods,
+    setToggleFilterFood,
   } = useContext(AppContext);
   const five = 5;
 
@@ -31,6 +32,7 @@ function CategoriesFood() {
             const { meals } = await filterCategoriesFoods(category.strCategory);
             setRecipesReturn(meals);
             setRedirectDetailsFoods(false);
+            setToggleFilterFood((prevState) => !prevState);
           } }
         >
           {category.strCategory}
