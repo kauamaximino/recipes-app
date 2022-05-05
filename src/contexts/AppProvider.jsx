@@ -15,7 +15,6 @@ function AppProvider({ children }) {
   const [redirectDetailsFoods, setRedirectDetailsFoods] = useState(false);
   const [randomID, setRandomID] = useState([]);
 
-
   const data = {
     email,
     setEmail,
