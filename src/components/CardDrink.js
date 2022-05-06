@@ -18,6 +18,7 @@ function CardDrink() {
       global.alert('Sorry, we haven\'t found any recipes for these filters.');
     }
   }, [cocktailsReturn]);
+
   return (
     <div>
       {cocktailsReturn && cocktailsReturn.slice(0, twelve).map((drink, index) => (
