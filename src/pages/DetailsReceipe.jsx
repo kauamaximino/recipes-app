@@ -1,5 +1,6 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect, useState, useContext } from 'react';
+import { useHistory } from 'react-router-dom';
 import propTypes from 'prop-types';
 import { getFoodById, getDrinks } from '../services/index';
 import RecomendationDrink from '../components/RecomendationDrink';
@@ -15,6 +16,7 @@ function DetailsReceipe({ match: { params: { id } } }) {
   const [recipeDone, setRecipeDone] = useState([]);
   const [render, setRender] = useState(true);
   const [handleEstate, setHandleEstate] = useState('StartRecipe');
+  const history = useHistory();
 
   useEffect(() => {
     const recipeApi = async () => {
@@ -52,6 +54,7 @@ function DetailsReceipe({ match: { params: { id } } }) {
       setRender(findRecipe);
     }
   }, [recipeDone]);
+
   useEffect(() => {
     const recipesProgress = getSavedCartItems('inProgressRecipes');
     if (recipesProgress === null || recipesProgress === undefined) {
@@ -89,6 +92,8 @@ function DetailsReceipe({ match: { params: { id } } }) {
           <RecomendationDrink />
           {render && (
             <button
+              onClick={ () => {
+                history.push(`/foods/${id}/in-progress`);
               className="button-start"
               type="button"
               data-testid="start-recipe-btn"

@@ -1,5 +1,6 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect, useState, useContext } from 'react';
+import { useHistory } from 'react-router-dom';
 import propTypes from 'prop-types';
 import { getDrinkById, getFoods } from '../services/index';
 import RecomendationFood from '../components/RecomendationFood';
@@ -11,10 +12,12 @@ function DetailsDrink({ match: { params: { id } } }) {
   const [recipe, setRecipe] = useState({});
   const [ingredients, setIngredients] = useState({});
   const [measure, setmeasure] = useState({});
-  const { setRecipesReturn } = useContext(AppContext);
+  const { setCocktailsReturn } = useContext(AppContext);
   const [recipeDone, setRecipeDone] = useState([]);
   const [render, setRender] = useState(true);
   const [handleEstate, setHandleEstate] = useState('');
+  const history = useHistory();
+
 
   useEffect(() => {
     const recipeApi = async () => {
@@ -30,28 +33,15 @@ function DetailsDrink({ match: { params: { id } } }) {
       setIngredients(filteredIng);
       setRecipe(data);
       setmeasure(filteredMea);
+      console.log(data);
     };
     recipeApi();
   }, []);
 
   useEffect(() => {
-    const recipesProgress = getSavedCartItems('inProgressRecipes');
-    if (recipesProgress === null || recipesProgress === undefined) {
-      setHandleEstate('Start Recipe');
-      console.log('nao entrou');
-    } else if (recipesProgress.includes(id)) {
-      console.log('entrou');
-      setHandleEstate('Continue Recipe');
-    } else {
-      console.log('nao entrou');
-      setHandleEstate('Start Recipe');
-    }
-  }, []);
-
-  useEffect(() => {
     const firstRender = async () => {
       const response = await getFoods();
-      setRecipesReturn(response);
+      setCocktailsReturn(response);
       const recipesFinished = getSavedCartItems('doneRecipes');
       setRecipeDone(recipesFinished);
     };
@@ -66,6 +56,17 @@ function DetailsDrink({ match: { params: { id } } }) {
       setRender(findRecipe);
     }
   }, [recipeDone]);
+
+  useEffect(() => {
+    const recipesProgress = getSavedCartItems('inProgressRecipes');
+    if (recipesProgress === null || recipesProgress === undefined) {
+      setHandleEstate('Start Recipe');
+    } else if (recipesProgress.includes(id)) {
+      setHandleEstate('Continue Recipe');
+    } else {
+      setHandleEstate('Start Recipe');
+    }
+  }, []);
 
   return (
     <div>
@@ -89,6 +90,9 @@ function DetailsDrink({ match: { params: { id } } }) {
           <RecomendationFood />
           {render && (
             <button
+              onClick={ () => {
+                history.push(`/drinks/${id}/in-progress`);
+              } }
               className="button-start"
               type="button"
               data-testid="start-recipe-btn"
