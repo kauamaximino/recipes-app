@@ -18,6 +18,7 @@ function DetailsDrink({ match: { params: { id } } }) {
   const [handleEstate, setHandleEstate] = useState('');
   const history = useHistory();
 
+
   useEffect(() => {
     const recipeApi = async () => {
       const data = await getDrinkById(id);
