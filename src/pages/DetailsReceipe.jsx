@@ -1,16 +1,22 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect, useState, useContext } from 'react';
+import { useHistory } from 'react-router-dom';
 import propTypes from 'prop-types';
 import { getFoodById, getDrinks } from '../services/index';
 import RecomendationDrink from '../components/RecomendationDrink';
 import AppContext from '../contexts/AppContext';
 import '../style/Details.css';
+import getSavedCartItems from '../helpers/getLocalStorage';
 
 function DetailsReceipe({ match: { params: { id } } }) {
   const [recipe, setRecipe] = useState({});
   const [ingredients, setIngredients] = useState({});
   const [measure, setmeasure] = useState({});
   const { setCocktailsReturn } = useContext(AppContext);
+  const [recipeDone, setRecipeDone] = useState([]);
+  const [render, setRender] = useState(true);
+  const [handleEstate, setHandleEstate] = useState('StartRecipe');
+  const history = useHistory();
 
   useEffect(() => {
     const recipeApi = async () => {
@@ -34,9 +40,30 @@ function DetailsReceipe({ match: { params: { id } } }) {
     const firstRender = async () => {
       const response = await getDrinks();
       setCocktailsReturn(response);
-      console.log(response);
+      const recipesFinished = getSavedCartItems('doneRecipes');
+      setRecipeDone(recipesFinished);
     };
     firstRender();
+  }, []);
+
+  useEffect(() => {
+    if (recipeDone === null) {
+      setRender(true);
+    } else {
+      const findRecipe = Object.values(recipeDone).find((reci) => reci.id === id);
+      setRender(findRecipe);
+    }
+  }, [recipeDone]);
+
+  useEffect(() => {
+    const recipesProgress = getSavedCartItems('inProgressRecipes');
+    if (recipesProgress === null || recipesProgress === undefined) {
+      setHandleEstate('Start Recipe');
+    } else if (recipesProgress.includes(id)) {
+      setHandleEstate('Continue Recipe');
+    } else {
+      setHandleEstate('Start Recipe');
+    }
   }, []);
 
   return (
@@ -61,13 +88,18 @@ function DetailsReceipe({ match: { params: { id } } }) {
         <track kind="captions" src={ recipe.strYoutube } />
       </video>
       <RecomendationDrink />
-      <button
-        className="button-start"
-        type="button"
-        data-testid="start-recipe-btn"
-      >
-        Start Recipe
-      </button>
+      {render && (
+        <button
+          onClick={ () => {
+            history.push(`/foods/${id}/in-progress`);
+          } }
+          className="button-start"
+          type="button"
+          data-testid="start-recipe-btn"
+        >
+          {handleEstate}
+        </button>
+      )}
     </div>
   );
 }
