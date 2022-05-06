@@ -2,7 +2,6 @@ import React, { useContext } from 'react';
 import propTypes from 'prop-types';
 import AppContext from '../contexts/AppContext';
 import saveLocalStorage from '../helpers/saveLocalStorage';
-import '../style/Login.css';
 
 const Login = ({ history }) => {
   const {
@@ -17,42 +16,35 @@ const Login = ({ history }) => {
 
   return (
     <div>
-      <h1 className="title display-3">Login</h1>
-      <div className="conteiner">
-        <input
-          className="form-control"
-          type="email"
-          placeholder="Email"
-          data-testid="email-input"
-          value={ email }
-          onChange={ ({ target: { value } }) => setEmail(value) }
-        />
-        <input
-          className="form-control"
-          type="password"
-          placeholder="Password"
-          data-testid="password-input"
-          value={ password }
-          onChange={ ({ target: { value } }) => setPassword(value) }
-        />
-      </div>
-      <div className="conteiner-btn">
-        <button
-          className="btn btn-success btn-lg"
-          type="button"
-          data-testid="login-submit-btn"
-          disabled={ !(regex.test(email) && password.length > six) }
-          onClick={ () => {
-            history.push('/foods');
-            saveLocalStorage('mealsToken', 1);
-            saveLocalStorage('cocktailsToken', 1);
-            saveLocalStorage('user', { email });
-          } }
-        >
-          Enter
-        </button>
-      </div>
+      <input
+        type="email"
+        placeholder="Email"
+        data-testid="email-input"
+        value={ email }
+        onChange={ ({ target: { value } }) => setEmail(value) }
+      />
 
+      <input
+        type="password"
+        placeholder="Password"
+        data-testid="password-input"
+        value={ password }
+        onChange={ ({ target: { value } }) => setPassword(value) }
+      />
+
+      <button
+        type="button"
+        data-testid="login-submit-btn"
+        disabled={ !(regex.test(email) && password.length > six) }
+        onClick={ () => {
+          history.push('/foods');
+          saveLocalStorage('mealsToken', 1);
+          saveLocalStorage('cocktailsToken', 1);
+          saveLocalStorage('user', { email });
+        } }
+      >
+        Enter
+      </button>
     </div>
   );
 };

@@ -3,9 +3,9 @@ footer {
   background: #d4d4d4;
   bottom: 0;
   display: flex;
-  height: 60px;
+  height: 100px;
   justify-content: space-around;
   left: 0;
   position: fixed;
-  width: 360px;
+  width: 100%;
 }

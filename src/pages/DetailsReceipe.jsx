@@ -5,12 +5,16 @@ import { getFoodById, getDrinks } from '../services/index';
 import RecomendationDrink from '../components/RecomendationDrink';
 import AppContext from '../contexts/AppContext';
 import '../style/Details.css';
+import getSavedCartItems from '../helpers/getLocalStorage';
 
 function DetailsReceipe({ match: { params: { id } } }) {
   const [recipe, setRecipe] = useState({});
   const [ingredients, setIngredients] = useState({});
   const [measure, setmeasure] = useState({});
   const { setCocktailsReturn } = useContext(AppContext);
+  const [recipeDone, setRecipeDone] = useState([]);
+  const [render, setRender] = useState(true);
+  const [handleEstate, setHandleEstate] = useState('StartRecipe');
 
   useEffect(() => {
     const recipeApi = async () => {
@@ -34,40 +38,66 @@ function DetailsReceipe({ match: { params: { id } } }) {
     const firstRender = async () => {
       const response = await getDrinks();
       setCocktailsReturn(response);
-      console.log(response);
+      const recipesFinished = getSavedCartItems('doneRecipes');
+      setRecipeDone(recipesFinished);
     };
     firstRender();
   }, []);
 
+  useEffect(() => {
+    if (recipeDone === null) {
+      setRender(true);
+    } else {
+      const findRecipe = Object.values(recipeDone).find((reci) => reci.id === id);
+      setRender(findRecipe);
+    }
+  }, [recipeDone]);
+  useEffect(() => {
+    const recipesProgress = getSavedCartItems('inProgressRecipes');
+    if (recipesProgress === null || recipesProgress === undefined) {
+      setHandleEstate('Start Recipe');
+    } else if (recipesProgress.includes(id)) {
+      setHandleEstate('Continue Recipe');
+    } else {
+      setHandleEstate('Start Recipe');
+    }
+  }, []);
+
   return (
     <div>
-      <img
-        src={ recipe.strMealThumb }
-        data-testid="recipe-photo"
-        alt={ recipe.strMeal }
-      />
-      <h2 data-testid="recipe-title">{recipe.strMeal}</h2>
-      <button data-testid="share-btn" type="button">Share</button>
-      <button data-testid="favorite-btn" type="button">Favorite</button>
-      <h3 data-testid="recipe-category">{recipe.strCategory}</h3>
-      {Object.values(ingredients).map((ingredient, i) => (
-        <p key={ i } data-testid={ `${i}-ingredient-name-and-measure` }>
-          {`${ingredient} - ${measure[i]}`}
-        </p>
-      ))}
-      <p data-testid="instructions">{recipe.strInstructions}</p>
-      <video data-testid="video" width="320" height="240" controls>
-        <source src={ recipe.strYoutube } type="video/mp4" />
-        <track kind="captions" src={ recipe.strYoutube } />
-      </video>
-      <RecomendationDrink />
-      <button
-        className="button-start"
-        type="button"
-        data-testid="start-recipe-btn"
-      >
-        Start Recipe
-      </button>
+      {handleEstate.length > 0 && (
+        <div>
+          <img
+            src={ recipe.strMealThumb }
+            data-testid="recipe-photo"
+            alt={ recipe.strMeal }
+          />
+          <h2 data-testid="recipe-title">{recipe.strMeal}</h2>
+          <button data-testid="share-btn" type="button">Share</button>
+          <button data-testid="favorite-btn" type="button">Favorite</button>
+          <h3 data-testid="recipe-category">{recipe.strCategory}</h3>
+          {Object.values(ingredients).map((ingredient, i) => (
+            <p key={ i } data-testid={ `${i}-ingredient-name-and-measure` }>
+              {`${ingredient} - ${measure[i]}`}
+            </p>
+          ))}
+          <p data-testid="instructions">{recipe.strInstructions}</p>
+          <video data-testid="video" width="320" height="240" controls>
+            <source src={ recipe.strYoutube } type="video/mp4" />
+            <track kind="captions" src={ recipe.strYoutube } />
+          </video>
+          <RecomendationDrink />
+          {render && (
+            <button
+              className="button-start"
+              type="button"
+              data-testid="start-recipe-btn"
+            >
+              {handleEstate}
+            </button>
+          )}
+        </div>
+      )}
     </div>
   );
 }
