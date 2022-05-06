@@ -68,40 +68,37 @@ function DetailsReceipe({ match: { params: { id } } }) {
 
   return (
     <div>
-      {handleEstate.length > 0 && (
-        <div>
-          <img
-            src={ recipe.strMealThumb }
-            data-testid="recipe-photo"
-            alt={ recipe.strMeal }
-          />
-          <h2 data-testid="recipe-title">{recipe.strMeal}</h2>
-          <button data-testid="share-btn" type="button">Share</button>
-          <button data-testid="favorite-btn" type="button">Favorite</button>
-          <h3 data-testid="recipe-category">{recipe.strCategory}</h3>
-          {Object.values(ingredients).map((ingredient, i) => (
-            <p key={ i } data-testid={ `${i}-ingredient-name-and-measure` }>
-              {`${ingredient} - ${measure[i]}`}
-            </p>
-          ))}
-          <p data-testid="instructions">{recipe.strInstructions}</p>
-          <video data-testid="video" width="320" height="240" controls>
-            <source src={ recipe.strYoutube } type="video/mp4" />
-            <track kind="captions" src={ recipe.strYoutube } />
-          </video>
-          <RecomendationDrink />
-          {render && (
-            <button
-              onClick={ () => {
-                history.push(`/foods/${id}/in-progress`);
-              className="button-start"
-              type="button"
-              data-testid="start-recipe-btn"
-            >
-              {handleEstate}
-            </button>
-          )}
-        </div>
+      <img
+        src={ recipe.strMealThumb }
+        data-testid="recipe-photo"
+        alt={ recipe.strMeal }
+      />
+      <h2 data-testid="recipe-title">{recipe.strMeal}</h2>
+      <button data-testid="share-btn" type="button">Share</button>
+      <button data-testid="favorite-btn" type="button">Favorite</button>
+      <h3 data-testid="recipe-category">{recipe.strCategory}</h3>
+      {Object.values(ingredients).map((ingredient, i) => (
+        <p key={ i } data-testid={ `${i}-ingredient-name-and-measure` }>
+          {`${ingredient} - ${measure[i]}`}
+        </p>
+      ))}
+      <p data-testid="instructions">{recipe.strInstructions}</p>
+      <video data-testid="video" width="320" height="240" controls>
+        <source src={ recipe.strYoutube } type="video/mp4" />
+        <track kind="captions" src={ recipe.strYoutube } />
+      </video>
+      <RecomendationDrink />
+      {render && (
+        <button
+          data-testid="start-recipe-btn"
+          onClick={ () => {
+            history.push(`/foods/${id}/in-progress`);
+          } }
+          className="button-start"
+          type="button"
+        >
+          {handleEstate}
+        </button>
       )}
     </div>
   );
