@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import propTypes from 'prop-types';
 import AppContext from './AppContext';
 import { getFoodByIngredientList, getDrinks,
-  getFoods, getDrinkByIngredientList } from '../services/index';
+  getFoods, getAreaList, getDrinkByIngredientList } from '../services/index';
 
 function AppProvider({ children }) {
   const [email, setEmail] = useState('');
@@ -18,6 +18,7 @@ function AppProvider({ children }) {
   const [randomID, setRandomID] = useState([]);
   const [foodIngredientList, setFoodIngredientList] = useState();
   const [drinkIngredientList, setDrinkIngredientList] = useState([]);
+  const [areaList, setAreaList] = useState([]);
 
   useEffect(() => {
     const firstRender = async () => {
@@ -33,6 +34,14 @@ function AppProvider({ children }) {
       setCocktailsReturn(response);
     };
     firstRender();
+  }, []);
+
+  useEffect(() => {
+    const getList = async () => {
+      const response = await getAreaList();
+      setAreaList(response.meals);
+    };
+    getList();
   }, []);
 
   useEffect(() => {
@@ -78,6 +87,8 @@ function AppProvider({ children }) {
     setFoodIngredientList,
     drinkIngredientList,
     setDrinkIngredientList,
+    areaList,
+    setAreaList,
   };
 
   return (

@@ -1,9 +1,22 @@
+const FOOD_NATIONALITY = (nationality) => (`https://www.themealdb.com/api/json/v1/1/filter.php?a=${nationality}`);
 const FOOD_INGREDIENT = (ingredient) => (`https://www.themealdb.com/api/json/v1/1/filter.php?i=${ingredient}`);
 const FOOD_NAME = (name) => (`https://www.themealdb.com/api/json/v1/1/search.php?s=${name}`);
 const FOOD_LETTER = (letter) => (`https://www.themealdb.com/api/json/v1/1/search.php?f=${letter}`);
 const DRINK_INGREDIENT = (ingredient) => (`https://www.thecocktaildb.com/api/json/v1/1/filter.php?i=${ingredient}`);
 const DRINK_NAME = (name) => (`https://www.thecocktaildb.com/api/json/v1/1/search.php?s=${name}`);
 const DRINK_LETTER = (letter) => (`https://www.thecocktaildb.com/api/json/v1/1/search.php?f=${letter}`);
+
+export const getFoodByNationality = async (nationality) => {
+  const response = await fetch(FOOD_NATIONALITY(nationality));
+  const data = await response.json();
+  return response.ok ? Promise.resolve(data.meals) : Promise.reject(json);
+};
+
+export const getAreaList = async () => {
+  const response = await fetch('https://www.themealdb.com/api/json/v1/1/list.php?a=list');
+  const data = await response.json();
+  return response.ok ? Promise.resolve(data) : Promise.reject(json);
+};
 
 export const getFoodByIngredientList = async () => {
   const response = await fetch('https://www.themealdb.com/api/json/v1/1/list.php?i=list');
