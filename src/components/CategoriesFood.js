@@ -1,6 +1,7 @@
 import React, { useEffect, useContext } from 'react';
 import { fetchFoodsCategories, filterCategoriesFoods } from '../services/categoriesAPI';
 import AppContext from '../contexts/AppContext';
+import '../style/CategoriesFoods.css';
 
 function CategoriesFood() {
   const {
@@ -20,9 +21,10 @@ function CategoriesFood() {
   }, []);
 
   return (
-    <div>
+    <div className="conteiner-category-food">
       {categoriesFood && categoriesFood.slice(0, five).map((category, index) => (
         <button
+          className="btn-food"
           key={ index }
           name="category-button"
           type="button"
