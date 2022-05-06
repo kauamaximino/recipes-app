@@ -1,5 +1,6 @@
 import React, { useEffect, useContext } from 'react';
 import { fetchDrinksCategories, filterCategoriesDrinks } from '../services/categoriesAPI';
+import { getDrinks } from '../services/index';
 import AppContext from '../contexts/AppContext';
 
 function CategoriesDrink() {
@@ -8,6 +9,9 @@ function CategoriesDrink() {
     setCategoriesDrink,
     setCocktailsReturn,
     setRedirectDetailsDrinks,
+    setToggleFilterDrink,
+    setSelectedCategoryDrink,
+    selectedCategoryDrink,
   } = useContext(AppContext);
   const five = 5;
 
@@ -35,13 +39,27 @@ function CategoriesDrink() {
               const { drinks } = await filterCategoriesDrinks(category.strCategory);
               setCocktailsReturn(drinks);
               setRedirectDetailsDrinks(false);
+              setSelectedCategoryDrink(category.strCategory);
+              if (selectedCategoryDrink === ''
+                || selectedCategoryDrink === category.strCategory) {
+                setToggleFilterDrink((prevState) => !prevState);
+              }
             } }
           >
             {category.strCategory}
           </button>
         );
       })}
-
+      <button
+        type="button"
+        data-testid="All-category-filter"
+        onClick={ async () => {
+          const response = await getDrinks();
+          setCocktailsReturn(response);
+        } }
+      >
+        All
+      </button>
     </div>
   );
 }

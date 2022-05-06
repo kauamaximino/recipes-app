@@ -1,5 +1,5 @@
 import React, { useContext, useEffect } from 'react';
-import { useHistory, Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import AppContext from '../contexts/AppContext';
 
 function CardFood() {
