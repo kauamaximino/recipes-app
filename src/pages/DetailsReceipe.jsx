@@ -92,7 +92,7 @@ function DetailsReceipe({ match: { params: { id } } }) {
         <button
           data-testid="start-recipe-btn"
           onClick={ () => {
-            history.push(`/drinks/${id}/in-progress`);
+            history.push(`/foods/${id}/in-progress`);
           } }
           className="button-start"
           type="button"
