@@ -1,5 +1,6 @@
 import React, { useEffect, useContext } from 'react';
 import { fetchDrinksCategories, filterCategoriesDrinks } from '../services/categoriesAPI';
+import { getDrinks } from '../services/index';
 import AppContext from '../contexts/AppContext';
 
 function CategoriesDrink() {
@@ -49,7 +50,16 @@ function CategoriesDrink() {
           </button>
         );
       })}
-
+      <button
+        type="button"
+        data-testid="All-category-filter"
+        onClick={ async () => {
+          const response = await getDrinks();
+          setCocktailsReturn(response);
+        } }
+      >
+        All
+      </button>
     </div>
   );
 }

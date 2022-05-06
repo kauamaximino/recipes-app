@@ -1,5 +1,6 @@
 import React, { useEffect, useContext } from 'react';
 import { fetchFoodsCategories, filterCategoriesFoods } from '../services/categoriesAPI';
+import { getFoods } from '../services/index';
 import AppContext from '../contexts/AppContext';
 
 function CategoriesFood() {
@@ -27,7 +28,6 @@ function CategoriesFood() {
       {categoriesFood && categoriesFood.slice(0, five).map((category, index) => (
         <button
           key={ index }
-          name="category-button"
           type="button"
           data-testid={ `${category.strCategory}-category-filter` }
           onClick={ async () => {
@@ -44,7 +44,16 @@ function CategoriesFood() {
           {category.strCategory}
         </button>
       ))}
-
+      <button
+        type="button"
+        data-testid="All-category-filter"
+        onClick={ async () => {
+          const response = await getFoods();
+          setRecipesReturn(response);
+        } }
+      >
+        All
+      </button>
     </div>
   );
 }
