@@ -20,6 +20,8 @@ function AppProvider({ children }) {
   const [drinkIngredientList, setDrinkIngredientList] = useState([]);
   const [toggleFilterFood, setToggleFilterFood] = useState(true);
   const [toggleFilterDrink, setToggleFilterDrink] = useState(true);
+  const [selectedCategoryFood, setSelectedCategoryFood] = useState('');
+  const [selectedCategoryDrink, setSelectedCategoryDrink] = useState('');
 
   useEffect(() => {
     const firstRender = async () => {
@@ -88,6 +90,10 @@ function AppProvider({ children }) {
     setToggleFilterFood,
     toggleFilterDrink,
     setToggleFilterDrink,
+    selectedCategoryFood,
+    setSelectedCategoryFood,
+    selectedCategoryDrink,
+    setSelectedCategoryDrink,
   };
 
   return (
