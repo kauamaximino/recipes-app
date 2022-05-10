@@ -9,7 +9,6 @@ import '../style/Details.css';
 import getSavedInLocalStorage from '../helpers/getLocalStorage';
 import saveLocalStorage from '../helpers/saveLocalStorage';
 
-
 function DetailsDrink({ match: { params: { id } } }) {
   const [recipe, setRecipe] = useState({});
   const [ingredients, setIngredients] = useState({});
