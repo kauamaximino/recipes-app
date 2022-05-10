@@ -19,7 +19,6 @@ const FoodsProgress = ({ match: { params: { id } } }) => {
   const blackHeart = '../images/blackHeartIcon.svg';
   const whiteHeart = '../images/whiteHeartIcon.svg';
   const [handleFavorite, setHandleFavorite] = useState();
-
   useEffect(() => {
     const recipeApi = async () => {
       const data = await getFoodById(id);
@@ -50,7 +49,6 @@ const FoodsProgress = ({ match: { params: { id } } }) => {
     };
     recipeApi();
   }, []);
-
   useEffect(() => {
     const ingredientCheck = getSavedInLocalStorage('inProgressRecipes');
     if (!loading && ingredientCheck) {
@@ -64,7 +62,6 @@ const FoodsProgress = ({ match: { params: { id } } }) => {
     }
   },
   [loading, changeState, id]);
-
   const setIngredientsLocalStorage = ({ target: { value } }) => {
     const findIng = ingredientsUse.find((ing) => ing === value);
     if (!findIng) {
@@ -95,7 +92,6 @@ const FoodsProgress = ({ match: { params: { id } } }) => {
       }
     }
   };
-
   useEffect(() => {
     const recipesFavorite = getSavedInLocalStorage('favoriteRecipes');
     if (recipesFavorite === null || recipesFavorite === undefined) {
@@ -106,7 +102,6 @@ const FoodsProgress = ({ match: { params: { id } } }) => {
       setHandleFavorite(whiteHeart);
     }
   }, []);
-
   const time = 2000;
   useEffect(() => {
     if (shared) {
@@ -116,7 +111,6 @@ const FoodsProgress = ({ match: { params: { id } } }) => {
       }, time);
     }
   }, [shared]);
-
   const favorite = () => {
     const objFavorite = {
       id,
@@ -143,7 +137,6 @@ const FoodsProgress = ({ match: { params: { id } } }) => {
       saveLocalStorage('favoriteRecipes', previousFavorite);
     }
   };
-
   return (
     <div>
       <img
@@ -192,7 +185,6 @@ const FoodsProgress = ({ match: { params: { id } } }) => {
             } }
           />
           {`${ingredient} - ${measure[i]}`}
-
         </label>
       ))}
       <p data-testid="instructions">{mealProgress.strInstructions}</p>
@@ -210,9 +202,7 @@ const FoodsProgress = ({ match: { params: { id } } }) => {
     </div>
   );
 };
-
 FoodsProgress.propTypes = {
   id: propTypes.string,
 }.isRequired;
-
 export default FoodsProgress;

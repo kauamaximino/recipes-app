@@ -1,5 +1,6 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect, useState, useContext } from 'react';
+import { useHistory } from 'react-router-dom';
 import propTypes from 'prop-types';
 import { getDrinkById, getFoods } from '../services/index';
 import RecomendationFood from '../components/RecomendationFood';
@@ -7,6 +8,7 @@ import AppContext from '../contexts/AppContext';
 import '../style/Details.css';
 import getSavedInLocalStorage from '../helpers/getLocalStorage';
 import saveLocalStorage from '../helpers/saveLocalStorage';
+
 const copy = require('clipboard-copy');
 
 function DetailsDrink({ match: { params: { id } } }) {
@@ -22,7 +24,6 @@ function DetailsDrink({ match: { params: { id } } }) {
   const [handleFavorite, setHandleFavorite] = useState(whiteHeart);
   const history = useHistory();
   const [shared, setShared] = useState(false);
-
   useEffect(() => {
     const recipeApi = async () => {
       const data = await getDrinkById(id);
@@ -40,9 +41,8 @@ function DetailsDrink({ match: { params: { id } } }) {
     };
     recipeApi();
   }, []);
-
   useEffect(() => {
-    const firstRender = async () => {
+    const firstRender = async () => { /* eslint-disable react-hooks/exhaustive-deps */
       const response = await getFoods();
       setCocktailsReturn(response);
       const recipesFinished = getSavedInLocalStorage('doneRecipes');
@@ -50,7 +50,6 @@ function DetailsDrink({ match: { params: { id } } }) {
     };
     firstRender();
   }, []);
-
   useEffect(() => {
     if (recipeDone === null) {
       setRender(true);
@@ -59,7 +58,6 @@ function DetailsDrink({ match: { params: { id } } }) {
       setRender(findRecipe);
     }
   }, [recipeDone]);
-
   useEffect(() => {
     const recipesFavorite = getSavedInLocalStorage('favoriteRecipes');
     if (recipesFavorite === null || recipesFavorite === undefined) {
@@ -78,7 +76,6 @@ function DetailsDrink({ match: { params: { id } } }) {
       setHandleEstate('Start Recipe');
     }
   }, []);
-
   const time = 2000;
   useEffect(() => {
     if (shared) {
@@ -88,7 +85,6 @@ function DetailsDrink({ match: { params: { id } } }) {
       }, time);
     }
   }, [shared]);
-
   const favorite = () => {
     const objFavorite = {
       id,
@@ -115,7 +111,6 @@ function DetailsDrink({ match: { params: { id } } }) {
       saveLocalStorage('favoriteRecipes', previousFavorite);
     }
   };
-
   return (
     <div>
       {handleEstate.length > 0 && (
@@ -174,9 +169,7 @@ function DetailsDrink({ match: { params: { id } } }) {
     </div>
   );
 }
-
 DetailsDrink.propTypes = {
   id: propTypes.string,
 }.isRequired;
-
 export default DetailsDrink;
