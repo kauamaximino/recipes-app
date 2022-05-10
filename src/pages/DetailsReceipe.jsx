@@ -6,7 +6,7 @@ import { getFoodById, getDrinks } from '../services/index';
 import RecomendationDrink from '../components/RecomendationDrink';
 import AppContext from '../contexts/AppContext';
 import '../style/Details.css';
-import getSavedCartItems from '../helpers/getLocalStorage';
+import getSavedInLocalStorage from '../helpers/getLocalStorage';
 import saveLocalStorage from '../helpers/saveLocalStorage';
 
 function DetailsReceipe({ match: { params: { id } } }) {
@@ -44,7 +44,7 @@ function DetailsReceipe({ match: { params: { id } } }) {
     const firstRender = async () => {
       const response = await getDrinks();
       setCocktailsReturn(response);
-      const recipesFinished = getSavedCartItems('doneRecipes');
+      const recipesFinished = getSavedInLocalStorage('doneRecipes');
       setRecipeDone(recipesFinished);
     };
     firstRender();
@@ -60,7 +60,7 @@ function DetailsReceipe({ match: { params: { id } } }) {
   }, [recipeDone]);
 
   useEffect(() => {
-    const recipesFavorite = getSavedCartItems('favoriteRecipes');
+    const recipesFavorite = getSavedInLocalStorage('favoriteRecipes');
     if (recipesFavorite === null || recipesFavorite === undefined) {
       setHandleFavorite(whiteHeart);
     } else if (recipesFavorite.includes(id)) {
@@ -68,7 +68,7 @@ function DetailsReceipe({ match: { params: { id } } }) {
     } else {
       setHandleFavorite(whiteHeart);
     }
-    const recipesProgress = getSavedCartItems('inProgressRecipes');
+    const recipesProgress = getSavedInLocalStorage('inProgressRecipes');
     if (recipesProgress === null || recipesProgress === undefined) {
       setHandleEstate('Start Recipe');
     } else if (recipesProgress.includes(id)) {
