@@ -1,3 +1,3 @@
-const getSavedCartItems = (key) => localStorage.getItem(key);
+const getSavedInLocalStorage = (key) => localStorage.getItem(key);
 
-export default getSavedCartItems;
+export default getSavedInLocalStorage;

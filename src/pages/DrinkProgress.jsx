@@ -1,11 +1,18 @@
 import React, { useEffect, useState } from 'react';
 import propTypes from 'prop-types';
+import { Link } from 'react-router-dom';
 import { getDrinkById } from '../services/index';
+import getSavedInLocalStorage from '../helpers/getLocalStorage';
+import saveLocalStorage from '../helpers/saveLocalStorage';
 
 const DrinksProgress = ({ match: { params: { id } } }) => {
   const [drinkProgress, setDrinkProgress] = useState([]);
   const [ingredients, setIngredients] = useState([]);
   const [measure, setMeasure] = useState([]);
+  const [ingredientsUse, setIngredientsUse] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [buttonDisabled, setButtonDisabled] = useState(true);
+  const [changeState, setChangeState] = useState(false);
 
   useEffect(() => {
     const recipeApi = async () => {
@@ -21,10 +28,67 @@ const DrinksProgress = ({ match: { params: { id } } }) => {
       setIngredients(filteredIng);
       setDrinkProgress(data);
       setMeasure(filteredMea);
-      console.log(data);
+      setLoading(false);
+      const returnLS = getSavedInLocalStorage('inProgressRecipes');
+      if (returnLS) {
+        const { cocktails } = JSON.parse(returnLS);
+        const checks = document.querySelectorAll('input');
+        checks.forEach((check) => {
+          if (cocktails[id].includes(check.value)) {
+            check.checked = true;
+          } else {
+            check.checked = false;
+          }
+        });
+      }
     };
     recipeApi();
   }, []);
+
+  useEffect(() => {
+    const ingredientCheck = getSavedInLocalStorage('inProgressRecipes');
+    if (!loading && ingredientCheck) {
+      const allInputs = document.querySelectorAll('input');
+      const { cocktails } = JSON.parse(ingredientCheck);
+      if (cocktails[id] && cocktails[id].length === allInputs.length) {
+        setButtonDisabled(false);
+      } else {
+        setButtonDisabled(true);
+      }
+    }
+  },
+  [loading, changeState, id]);
+
+  const setIngredientsLocalStorage = ({ target: { value } }) => {
+    const findIng = ingredientsUse.find((ing) => ing === value);
+    if (!findIng) {
+      setIngredientsUse([...ingredientsUse, value]);
+    } else {
+      setIngredientsUse(
+        ingredientsUse.filter((ing) => ing !== value),
+      );
+    }
+    const progressRecipes = getSavedInLocalStorage('inProgressRecipes');
+    if (!progressRecipes) {
+      const cocktails = {
+        [id]: [value],
+      };
+      saveLocalStorage('inProgressRecipes', { cocktails });
+    } else {
+      const { cocktails } = JSON.parse(progressRecipes);
+      const findIngre = cocktails[id].find((ing) => ing === value);
+      if (cocktails[id] && !findIngre) {
+        cocktails[id].push(value);
+        saveLocalStorage('inProgressRecipes', { cocktails });
+      }
+      if (cocktails[id] && findIngre) {
+        cocktails[id] = cocktails[id].filter((ing) => ing !== value);
+        saveLocalStorage('inProgressRecipes', { cocktails });
+      } else {
+        saveLocalStorage('inProgressRecipes', { cocktails });
+      }
+    }
+  };
 
   return (
     <div>
@@ -46,19 +110,28 @@ const DrinksProgress = ({ match: { params: { id } } }) => {
           <input
             type="checkbox"
             name="checkbox"
-            key={ i }
+            value={ ingredient }
+            onClick={ (event) => {
+              setIngredientsLocalStorage(event);
+              setChangeState(!changeState);
+            } }
           />
           {`${ingredient} - ${measure[i]}`}
 
         </label>
       ))}
       <p data-testid="instructions">{drinkProgress.strInstructions}</p>
-      <button
-        data-testid="finish-recipe-btn"
-        type="button"
+      <Link
+        to="/done-recipes"
       >
-        Finish Receipe
-      </button>
+        <button
+          data-testid="finish-recipe-btn"
+          type="button"
+          disabled={ buttonDisabled }
+        >
+          Finish Receipe
+        </button>
+      </Link>
     </div>
   );
 };
