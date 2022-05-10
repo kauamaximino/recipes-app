@@ -39,7 +39,7 @@ function DetailsReceipe({ match: { params: { id } } }) {
     };
     recipeApi();
   }, []);
-
+  // corrigindo erros
   useEffect(() => {
     const firstRender = async () => {
       const response = await getDrinks();
