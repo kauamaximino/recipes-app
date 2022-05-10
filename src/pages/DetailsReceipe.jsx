@@ -7,6 +7,7 @@ import RecomendationDrink from '../components/RecomendationDrink';
 import AppContext from '../contexts/AppContext';
 import '../style/Details.css';
 import getSavedInLocalStorage from '../helpers/getLocalStorage';
+import saveLocalStorage from '../helpers/saveLocalStorage';
 
 function DetailsReceipe({ match: { params: { id } } }) {
   const [recipe, setRecipe] = useState({});
@@ -16,6 +17,9 @@ function DetailsReceipe({ match: { params: { id } } }) {
   const [recipeDone, setRecipeDone] = useState([]);
   const [render, setRender] = useState(true);
   const [handleEstate, setHandleEstate] = useState('StartRecipe');
+  const blackHeart = '../images/blackHeartIcon.svg';
+  const whiteHeart = '../images/whiteHeartIcon.svg';
+  const [handleFavorite, setHandleFavorite] = useState(whiteHeart);
   const history = useHistory();
 
   useEffect(() => {
@@ -56,6 +60,14 @@ function DetailsReceipe({ match: { params: { id } } }) {
   }, [recipeDone]);
 
   useEffect(() => {
+    const recipesFavorite = getSavedInLocalStorage('favoriteRecipes');
+    if (recipesFavorite === null || recipesFavorite === undefined) {
+      setHandleFavorite(whiteHeart);
+    } else if (recipesFavorite.includes(id)) {
+      setHandleFavorite(blackHeart);
+    } else {
+      setHandleFavorite(whiteHeart);
+    }
     const recipesProgress = getSavedInLocalStorage('inProgressRecipes');
     if (recipesProgress === null || recipesProgress === undefined) {
       setHandleEstate('Start Recipe');
@@ -66,6 +78,33 @@ function DetailsReceipe({ match: { params: { id } } }) {
     }
   }, []);
 
+  const favorite = () => {
+    const objFavorite = {
+      id,
+      type: 'food',
+      nationality: recipe.strArea,
+      category: recipe.strCategory,
+      alcoholicOrNot: '',
+      name: recipe.strMeal,
+      image: recipe.strMealThumb,
+    };
+    const recipesFavorite = getSavedCartItems('favoriteRecipes');
+    if (recipesFavorite === null) {
+      saveLocalStorage('favoriteRecipes', [objFavorite]);
+      setHandleFavorite(blackHeart);
+    } else if (recipesFavorite.includes(id)) {
+      const PreviousFavorite = JSON.parse(recipesFavorite);
+      const newFavorite = PreviousFavorite.filter((reci) => reci.id !== id);
+      setHandleFavorite(whiteHeart);
+      saveLocalStorage('favoriteRecipes', newFavorite);
+    } else {
+      const previousFavorite = JSON.parse(recipesFavorite);
+      previousFavorite.push(objFavorite);
+      setHandleFavorite(blackHeart);
+      saveLocalStorage('favoriteRecipes', previousFavorite);
+    }
+  };
+
   return (
     <div>
       <img
@@ -75,7 +114,17 @@ function DetailsReceipe({ match: { params: { id } } }) {
       />
       <h2 data-testid="recipe-title">{recipe.strMeal}</h2>
       <button data-testid="share-btn" type="button">Share</button>
-      <button data-testid="favorite-btn" type="button">Favorite</button>
+      <button
+        src={ handleFavorite }
+        data-testid="favorite-btn"
+        type="button"
+        onClick={ favorite }
+      >
+        <img
+          src={ handleFavorite }
+          alt="favorite"
+        />
+      </button>
       <h3 data-testid="recipe-category">{recipe.strCategory}</h3>
       {Object.values(ingredients).map((ingredient, i) => (
         <p key={ i } data-testid={ `${i}-ingredient-name-and-measure` }>
