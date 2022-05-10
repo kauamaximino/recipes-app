@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import { getFoodById } from '../services/index';
 import getSavedInLocalStorage from '../helpers/getLocalStorage';
 import saveLocalStorage from '../helpers/saveLocalStorage';
+import '../style/Details.css';
 
 const copy = require('clipboard-copy');
 
@@ -138,60 +139,89 @@ const FoodsProgress = ({ match: { params: { id } } }) => {
     }
   };
   return (
-    <div>
+    <div className="conteiner-geral">
       <img
+        className="img-details img-thumbnail"
         src={ mealProgress.strMealThumb }
         data-testid="recipe-photo"
         alt={ mealProgress.strMeal }
       />
-      <h2 data-testid="recipe-title">{mealProgress.strMeal}</h2>
-      <button
-        data-testid="share-btn"
-        type="button"
-        onClick={ () => setShared(true) }
-      >
-        Share
-      </button>
-      {shared && (
-        <p>
-          Link copied!
-        </p>
-      )}
-      <button
-        src={ handleFavorite }
-        data-testid="favorite-btn"
-        type="button"
-        onClick={ favorite }
-      >
-        <img
-          src={ handleFavorite }
-          alt="favorite"
-        />
-      </button>
-      <h3 data-testid="recipe-category">{mealProgress.strCategory}</h3>
-      {Object.values(ingredients).map((ingredient, i) => (
-        <label
-          htmlFor="checkbox"
-          key={ i }
-          data-testid={ `${i}-ingredient-step` }
+      <div className="conteiner-details">
+        <h2
+          className="display-3 title-recipe"
+          data-testid="recipe-title"
         >
-          <input
-            type="checkbox"
-            name="checkbox"
-            value={ ingredient }
-            onClick={ (event) => {
-              setIngredientsLocalStorage(event);
-              setChangeState(!changeState);
-            } }
+          {mealProgress.strMeal}
+        </h2>
+        <button
+          className="btn-details"
+          data-testid="share-btn"
+          type="button"
+          onClick={ () => setShared(true) }
+        >
+          Share
+        </button>
+        {shared && (
+          <p>
+            Link copied!
+          </p>
+        )}
+        <button
+          className="btn-details"
+          src={ handleFavorite }
+          data-testid="favorite-btn"
+          type="button"
+          onClick={ favorite }
+        >
+          <img
+            src={ handleFavorite }
+            alt="favorite"
           />
-          {`${ingredient} - ${measure[i]}`}
-        </label>
-      ))}
-      <p data-testid="instructions">{mealProgress.strInstructions}</p>
+        </button>
+      </div>
+      <h3
+        className="display-8 title-category"
+        data-testid="recipe-category"
+      >
+        {mealProgress.strCategory}
+      </h3>
+      <p className="display-6 title-ingredients">Ingredients</p>
+      <div className="form-check d-flex flex-column conteiner-ingredients">
+        {Object.values(ingredients).map((ingredient, i) => (
+          <label
+            className="form-check-label"
+            htmlFor="checkbox"
+            key={ i }
+            data-testid={ `${i}-ingredient-step` }
+          >
+            <input
+              className="form-check-label me-2"
+              type="checkbox"
+              name="checkbox"
+              value={ ingredient }
+              onClick={ (event) => {
+                setIngredientsLocalStorage(event);
+                setChangeState(!changeState);
+              } }
+            />
+            {`${ingredient} - ${measure[i]}`}
+          </label>
+        ))}
+      </div>
+      <p className="display-6 title-ingredients">Instructions</p>
+      <div className="conteiner-ingredients">
+        <p
+          className="text-justify"
+          data-testid="instructions"
+        >
+          {mealProgress.strInstructions}
+        </p>
+      </div>
       <Link
         to="/done-recipes"
       >
         <button
+          className="button-start"
           data-testid="finish-recipe-btn"
           type="button"
           disabled={ buttonDisabled }

@@ -1,0 +1,11 @@
+@media ( max-width : 640px ) {
+
+  .conteiner-nacio {
+    margin-top: 70px;
+  }
+
+  .form-select {
+    margin-left: 20px;
+    width: 315px;
+  }
+}

@@ -4,6 +4,7 @@ import Header from '../components/Header';
 import Footer from '../components/Footer';
 import AppContext from '../contexts/AppContext';
 import { getFoodByIngredient } from '../services/index';
+import '../style/IngredientesFoods.css';
 
 function IngredientsFoods() {
   const history = useHistory();
@@ -19,34 +20,38 @@ function IngredientsFoods() {
   return (
     <div>
       <Header title="Explore Ingredients" />
-      { foodIngredientList && foodIngredientList.slice(0, twelve)
-        .map((ingredient, index) => {
-          const { strIngredient: name } = ingredient;
-          return (
-            <button
-              type="button"
-              key={ index }
-              onClick={ () => handleClick(name) }
-            >
-              <div data-testid={ `${index}-ingredient-card` }>
-                <p
-                  data-testid={ `${index}-card-name` }
-                >
-                  {name}
+      <div className="conteiner-ingredients-explore">
+        { foodIngredientList && foodIngredientList.slice(0, twelve)
+          .map((ingredient, index) => {
+            const { strIngredient: name } = ingredient;
+            return (
+              <button
+                className="btn-exp-ing"
+                type="button"
+                key={ index }
+                onClick={ () => handleClick(name) }
+              >
+                <div data-testid={ `${index}-ingredient-card` }>
+                  <img
+                    data-testid={ `${index}-card-img` }
+                    alt={ name }
+                    src={ `https://www.themealdb.com/images/ingredients/${name}-Small.png` }
+                  />
+                  <p
+                    className="text-explore-ing"
+                    data-testid={ `${index}-card-name` }
+                  >
+                    {name}
 
-                </p>
-                <img
-                  data-testid={ `${index}-card-img` }
-                  alt={ name }
-                  src={ `https://www.themealdb.com/images/ingredients/${name}-Small.png` }
-                />
+                  </p>
 
-              </div>
+                </div>
 
-            </button>
+              </button>
 
-          );
-        })}
+            );
+          })}
+      </div>
       <Footer />
     </div>
   );

@@ -33,7 +33,7 @@ function Header({ title, haveSearch }) {
           </button>
         </Link>
 
-        <h1 className="display-3" data-testid="page-title">{ title }</h1>
+        <h1 className="display-6" data-testid="page-title">{ title }</h1>
 
         {
           (haveSearch) && (

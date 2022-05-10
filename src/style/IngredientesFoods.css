@@ -1,0 +1,22 @@
+@media ( max-width : 640px ) {
+
+  .conteiner-ingredients-explore {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    margin-bottom: 70px;
+    margin-top: 70px;
+  }
+
+  .btn-exp-ing {
+    border: none;
+    border-radius: 10px;
+    height: 170px;
+    margin-bottom: 10px;
+    width: 170px;
+  }
+
+  .text-explore-ing {
+    color: #1d3557;
+  }
+}

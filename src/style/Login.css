@@ -18,7 +18,25 @@
   }
 
   .title {
+    color: #1d3557;
     margin-top: 60%;
     text-align: center;
+  }
+
+  .btn-enter {
+    background-color: #f4a261;
+    color: #023e8a;
+    margin-top: 10px;
+  }
+
+  .input-login {
+    background-color: #a8dadc;
+    border: none;
+    border-radius: 5px;
+    color: #1d3557;
+    margin-left: 25px;
+    margin-top: 10px;
+    padding: 5px;
+    width: 310px;
   }
 }
