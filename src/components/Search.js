@@ -2,6 +2,7 @@ import React, { useContext } from 'react';
 import PropTypes from 'prop-types';
 import { handleAPI } from '../services/index';
 import AppContext from '../contexts/AppContext';
+import '../style/Search.css';
 
 function Search({ title }) {
   const {
@@ -28,61 +29,58 @@ function Search({ title }) {
   };
 
   return (
-    <div>
-      <div>
+    <div className="conteiner-search">
+      <input
+        placeholder="Search Recipe"
+        className="input-group input-search"
+        type="text"
+        data-testid="search-input"
+        onChange={ ({ target: { value } }) => setInputSearch(value) }
+      />
 
+      <label htmlFor="radio" className="form-check-label ms-5">
         <input
-          type="text"
-          data-testid="search-input"
-          onChange={ ({ target: { value } }) => setInputSearch(value) }
+          className="form-check-input check"
+          type="radio"
+          data-testid="ingredient-search-radio"
+          name="radio"
+          value="ingredient"
+          onChange={ handleRadioButton }
         />
-        <div>
+        Ingredient
+      </label>
 
-          <label htmlFor="radio">
-            <input
-              type="radio"
-              data-testid="ingredient-search-radio"
-              name="radio"
-              value="ingredient"
-              onChange={ handleRadioButton }
-            />
-            Ingredient
-          </label>
-        </div>
-        <div>
+      <label htmlFor="radio" className="form-check-label ms-2">
+        <input
+          className="form-check-input check"
+          type="radio"
+          data-testid="name-search-radio"
+          name="radio"
+          value="name"
+          onChange={ handleRadioButton }
+        />
+        Name
+      </label>
 
-          <label htmlFor="radio">
-            <input
-              type="radio"
-              data-testid="name-search-radio"
-              name="radio"
-              value="name"
-              onChange={ handleRadioButton }
-            />
-            Name
-          </label>
-        </div>
-        <div>
-
-          <label htmlFor="radio">
-            <input
-              type="radio"
-              data-testid="first-letter-search-radio"
-              name="radio"
-              value="letter"
-              onChange={ handleRadioButton }
-            />
-            First Letter
-          </label>
-        </div>
-
+      <label htmlFor="radio" className="form-check-label ms-2">
+        <input
+          className="form-check-input check"
+          type="radio"
+          data-testid="first-letter-search-radio"
+          name="radio"
+          value="letter"
+          onChange={ handleRadioButton }
+        />
+        First Letter
+      </label>
+      <div>
         <button
+          className="btn-search"
           type="button"
           data-testid="exec-search-btn"
           onClick={ () => {
             result();
           } }
-
         >
           Search
         </button>

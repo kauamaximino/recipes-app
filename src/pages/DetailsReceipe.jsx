@@ -1,6 +1,5 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect, useState, useContext } from 'react';
-import { useHistory } from 'react-router-dom';
 import propTypes from 'prop-types';
 import { getFoodById, getDrinks } from '../services/index';
 import RecomendationDrink from '../components/RecomendationDrink';
@@ -8,7 +7,6 @@ import AppContext from '../contexts/AppContext';
 import '../style/Details.css';
 import getSavedInLocalStorage from '../helpers/getLocalStorage';
 import saveLocalStorage from '../helpers/saveLocalStorage';
-
 const copy = require('clipboard-copy');
 
 function DetailsReceipe({ match: { params: { id } } }) {
@@ -161,18 +159,13 @@ function DetailsReceipe({ match: { params: { id } } }) {
         <track kind="captions" src={ recipe.strYoutube } />
       </video>
       <RecomendationDrink />
-      {render && (
-        <button
-          data-testid="start-recipe-btn"
-          onClick={ () => {
-            history.push(`/foods/${id}/in-progress`);
-          } }
-          className="button-start"
-          type="button"
-        >
-          {handleEstate}
-        </button>
-      )}
+      <button
+        className="button-start"
+        type="button"
+        data-testid="start-recipe-btn"
+      >
+        Start Recipe
+      </button>
     </div>
   );
 }

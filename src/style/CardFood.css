@@ -1,0 +1,29 @@
+@media ( max-width : 640px ) {
+
+  .img-food {
+    border-radius: 10px;
+    width: 100px;
+  }
+
+  .conteiner-food {
+    border-radius: 10px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+    margin-top: 10px;
+  }
+
+  .food-card {
+    border-radius: 10px;
+    margin-bottom: 15px;
+  }
+
+  .name-food {
+    color: #023e8a;
+    margin: 10px;
+  }
+
+  .link-decoration {
+    text-decoration: none;
+  }
+}

@@ -1,6 +1,5 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect, useState, useContext } from 'react';
-import { useHistory } from 'react-router-dom';
 import propTypes from 'prop-types';
 import { getDrinkById, getFoods } from '../services/index';
 import RecomendationFood from '../components/RecomendationFood';
@@ -8,7 +7,6 @@ import AppContext from '../contexts/AppContext';
 import '../style/Details.css';
 import getSavedInLocalStorage from '../helpers/getLocalStorage';
 import saveLocalStorage from '../helpers/saveLocalStorage';
-
 const copy = require('clipboard-copy');
 
 function DetailsDrink({ match: { params: { id } } }) {

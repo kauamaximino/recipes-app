@@ -18,31 +18,23 @@ function AppProvider({ children }) {
   const [randomID, setRandomID] = useState([]);
   const [foodIngredientList, setFoodIngredientList] = useState();
   const [drinkIngredientList, setDrinkIngredientList] = useState([]);
-  const [toggleFilterFood, setToggleFilterFood] = useState(true);
-  const [toggleFilterDrink, setToggleFilterDrink] = useState(true);
-  const [selectedCategoryFood, setSelectedCategoryFood] = useState('');
-  const [selectedCategoryDrink, setSelectedCategoryDrink] = useState('');
   const [areaList, setAreaList] = useState([]);
 
   useEffect(() => {
     const firstRender = async () => {
       const response = await getFoods();
-      if (toggleFilterFood) {
-        setRecipesReturn(response);
-      }
+      setRecipesReturn(response);
     };
     firstRender();
-  }, [toggleFilterFood]);
+  }, []);
 
   useEffect(() => {
     const firstRender = async () => {
       const response = await getDrinks();
-      if (toggleFilterDrink) {
-        setCocktailsReturn(response);
-      }
+      setCocktailsReturn(response);
     };
     firstRender();
-  }, [toggleFilterDrink]);
+  }, []);
 
   useEffect(() => {
     const getList = async () => {
@@ -95,17 +87,8 @@ function AppProvider({ children }) {
     setFoodIngredientList,
     drinkIngredientList,
     setDrinkIngredientList,
-    toggleFilterFood,
-    setToggleFilterFood,
-    toggleFilterDrink,
-    setToggleFilterDrink,
-    selectedCategoryFood,
-    setSelectedCategoryFood,
-    selectedCategoryDrink,
-    setSelectedCategoryDrink,
     areaList,
     setAreaList,
-
   };
 
   return (
