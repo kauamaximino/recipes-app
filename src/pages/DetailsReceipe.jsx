@@ -1,5 +1,6 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect, useState, useContext } from 'react';
+import { useHistory } from 'react-router-dom';
 import propTypes from 'prop-types';
 import { getFoodById, getDrinks } from '../services/index';
 import RecomendationDrink from '../components/RecomendationDrink';
@@ -7,6 +8,7 @@ import AppContext from '../contexts/AppContext';
 import '../style/Details.css';
 import getSavedInLocalStorage from '../helpers/getLocalStorage';
 import saveLocalStorage from '../helpers/saveLocalStorage';
+
 const copy = require('clipboard-copy');
 
 function DetailsReceipe({ match: { params: { id } } }) {
@@ -22,7 +24,6 @@ function DetailsReceipe({ match: { params: { id } } }) {
   const [handleFavorite, setHandleFavorite] = useState(whiteHeart);
   const history = useHistory();
   const [shared, setShared] = useState(false);
-
   useEffect(() => {
     const recipeApi = async () => {
       const data = await getFoodById(id);
@@ -40,7 +41,7 @@ function DetailsReceipe({ match: { params: { id } } }) {
     };
     recipeApi();
   }, []);
-  // corrigindo erros
+  
   useEffect(() => {
     const firstRender = async () => {
       const response = await getDrinks();
@@ -50,7 +51,6 @@ function DetailsReceipe({ match: { params: { id } } }) {
     };
     firstRender();
   }, []);
-
   useEffect(() => {
     if (recipeDone === null) {
       setRender(true);
@@ -59,7 +59,6 @@ function DetailsReceipe({ match: { params: { id } } }) {
       setRender(findRecipe);
     }
   }, [recipeDone]);
-
   useEffect(() => {
     const recipesFavorite = getSavedInLocalStorage('favoriteRecipes');
     if (recipesFavorite === null || recipesFavorite === undefined) {
@@ -78,7 +77,6 @@ function DetailsReceipe({ match: { params: { id } } }) {
       setHandleEstate('Start Recipe');
     }
   }, []);
-
   const time = 2000;
   useEffect(() => {
     if (shared) {
@@ -88,7 +86,6 @@ function DetailsReceipe({ match: { params: { id } } }) {
       }, time);
     }
   }, [shared]);
-
   const favorite = () => {
     const objFavorite = {
       id,
@@ -115,7 +112,6 @@ function DetailsReceipe({ match: { params: { id } } }) {
       saveLocalStorage('favoriteRecipes', previousFavorite);
     }
   };
-
   return (
     <div>
       <img
@@ -159,19 +155,22 @@ function DetailsReceipe({ match: { params: { id } } }) {
         <track kind="captions" src={ recipe.strYoutube } />
       </video>
       <RecomendationDrink />
-      <button
-        className="button-start"
-        type="button"
-        data-testid="start-recipe-btn"
-      >
-        Start Recipe
-      </button>
+      {render && (
+        <button
+          data-testid="start-recipe-btn"
+          onClick={ () => {
+            history.push(`/foods/${id}/in-progress`);
+          } }
+          className="button-start"
+          type="button"
+        >
+          {handleEstate}
+        </button>
+      )}
     </div>
   );
 }
-
 DetailsReceipe.propTypes = {
   id: propTypes.string,
 }.isRequired;
-
 export default DetailsReceipe;
