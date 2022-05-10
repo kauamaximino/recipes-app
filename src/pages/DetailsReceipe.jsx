@@ -41,6 +41,7 @@ function DetailsReceipe({ match: { params: { id } } }) {
     };
     recipeApi();
   }, []);
+  
   useEffect(() => {
     const firstRender = async () => {
       const response = await getDrinks();
