@@ -1,0 +1,21 @@
+@media ( max-width : 640px ) {
+
+  .conteiner-header {
+    align-items: center;
+    background: #d4d4d4;
+    background-color: #219ebc;
+    display: flex;
+    height: 60px;
+    justify-content: space-around;
+    left: 0;
+    position: fixed;
+    top: 0;
+    width: 360px;
+  }
+
+  .icon-profile-search {
+    background-color: #219ebc;
+    border: none;
+  }
+
+}

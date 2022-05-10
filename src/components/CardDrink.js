@@ -1,6 +1,7 @@
 import React, { useContext, useEffect } from 'react';
-import { useHistory, Link } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 import AppContext from '../contexts/AppContext';
+import '../style/CardFood.css';
 
 function CardDrink() {
   const history = useHistory();
@@ -18,25 +19,27 @@ function CardDrink() {
       global.alert('Sorry, we haven\'t found any recipes for these filters.');
     }
   }, [cocktailsReturn]);
-
   return (
-    <div>
+    <div className="conteiner-food">
       {cocktailsReturn && cocktailsReturn.slice(0, twelve).map((drink, index) => (
-        <Link
+        <div
+          className="shadow border food-card"
+          data-testid={ `${index}-recipe-card` }
           key={ drink.idDrink }
-          to={ `/drinks/${drink.idDrink}` }
         >
-          <div
-            data-testid={ `${index}-recipe-card` }
+          <img
+            className="img-food"
+            src={ drink.strDrinkThumb }
+            alt={ drink.strDrink }
+            data-testid={ `${index}-card-img` }
+          />
+          <p
+            data-testid={ `${index}-card-name` }
+            className="name-food"
           >
-            <h1 data-testid={ `${index}-card-name` }>{drink.strDrink}</h1>
-            <img
-              src={ drink.strDrinkThumb }
-              alt={ drink.strDrink }
-              data-testid={ `${index}-card-img` }
-            />
-          </div>
-        </Link>
+            {drink.strDrink}
+          </p>
+        </div>
       ))}
     </div>
   );

@@ -4,6 +4,7 @@ import Header from '../components/Header';
 import Footer from '../components/Footer';
 import getLocalStorage from '../helpers/getLocalStorage';
 import AppContext from '../contexts/AppContext';
+import '../style/Profile.css';
 
 function Profile({ history }) {
   const { email, setEmail } = useContext(AppContext);
@@ -25,11 +26,12 @@ function Profile({ history }) {
     <div>
       <Header title="Profile" />
       <Footer />
-      <div>
-        <p data-testid="profile-email">
+      <div className="conteiner-profile">
+        <p data-testid="profile-email" className="email-profile">
           { email }
         </p>
         <button
+          className="btn-profile"
           data-testid="profile-done-btn"
           type="button"
           onClick={ () => {
@@ -39,6 +41,7 @@ function Profile({ history }) {
           Done Recipes
         </button>
         <button
+          className="btn-profile"
           data-testid="profile-favorite-btn"
           type="button"
           onClick={ () => {
@@ -48,6 +51,7 @@ function Profile({ history }) {
           Favorite Recipes
         </button>
         <button
+          className="btn-profile"
           data-testid="profile-logout-btn"
           type="button"
           onClick={ () => {

@@ -5,6 +5,7 @@ import profileIcon from '../images/profileIcon.svg';
 import searchIcon from '../images/searchIcon.svg';
 import Search from './Search';
 import AppContext from '../contexts/AppContext';
+import '../style/Header.css';
 
 function Header({ title, haveSearch }) {
   const [search, setSearch] = useState(false);
@@ -12,37 +13,51 @@ function Header({ title, haveSearch }) {
 
   return (
     <div>
-      <header>
+      <div>
+        {(search)
+        && <Search title={ title } />}
+      </div>
+      <header className="conteiner-header">
         <Link to="/profile">
 
           <button
             type="button"
+            className="icon-profile-search"
           >
-            <img src={ profileIcon } alt="ícone perfil" data-testid="profile-top-btn" />
+            <img
+              src={ profileIcon }
+              alt="ícone perfil"
+              data-testid="profile-top-btn"
+            />
 
           </button>
         </Link>
-        <p data-testid="page-title">{ title }</p>
+
+        <h1 className="display-3" data-testid="page-title">{ title }</h1>
+
         {
           (haveSearch) && (
 
             <button
               type="button"
+              className="icon-profile-search"
               onClick={ () => {
                 setSearch((prevState) => !prevState);
                 setRedirectDetailsFoods(true);
               } }
 
             >
-              <img src={ searchIcon } alt="ícone pesquisa" data-testid="search-top-btn" />
+              <img
+                src={ searchIcon }
+                alt="ícone pesquisa"
+                data-testid="search-top-btn"
+              />
 
             </button>
           )
         }
 
       </header>
-      {(search)
-        && <Search title={ title } />}
     </div>
   );
 }

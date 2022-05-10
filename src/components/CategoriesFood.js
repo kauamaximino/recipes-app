@@ -1,7 +1,7 @@
 import React, { useEffect, useContext } from 'react';
 import { fetchFoodsCategories, filterCategoriesFoods } from '../services/categoriesAPI';
-import { getFoods } from '../services/index';
 import AppContext from '../contexts/AppContext';
+import '../style/CategoriesFoods.css';
 
 function CategoriesFood() {
   const {
@@ -9,9 +9,6 @@ function CategoriesFood() {
     setCategoriesFood,
     setRecipesReturn,
     setRedirectDetailsFoods,
-    setToggleFilterFood,
-    selectedCategoryFood,
-    setSelectedCategoryFood,
   } = useContext(AppContext);
   const five = 5;
 
@@ -24,36 +21,24 @@ function CategoriesFood() {
   }, []);
 
   return (
-    <div>
+    <div className="conteiner-category-food">
       {categoriesFood && categoriesFood.slice(0, five).map((category, index) => (
         <button
+          className="btn-food"
           key={ index }
+          name="category-button"
           type="button"
           data-testid={ `${category.strCategory}-category-filter` }
           onClick={ async () => {
             const { meals } = await filterCategoriesFoods(category.strCategory);
             setRecipesReturn(meals);
             setRedirectDetailsFoods(false);
-            await setSelectedCategoryFood(category.strCategory);
-            if (selectedCategoryFood === ''
-            || selectedCategoryFood === category.strCategory) {
-              setToggleFilterFood((prevState) => !prevState);
-            }
           } }
         >
           {category.strCategory}
         </button>
       ))}
-      <button
-        type="button"
-        data-testid="All-category-filter"
-        onClick={ async () => {
-          const response = await getFoods();
-          setRecipesReturn(response);
-        } }
-      >
-        All
-      </button>
+
     </div>
   );
 }
