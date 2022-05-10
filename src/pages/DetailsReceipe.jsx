@@ -9,6 +9,8 @@ import '../style/Details.css';
 import getSavedInLocalStorage from '../helpers/getLocalStorage';
 import saveLocalStorage from '../helpers/saveLocalStorage';
 
+const copy = require('clipboard-copy');
+
 function DetailsReceipe({ match: { params: { id } } }) {
   const [recipe, setRecipe] = useState({});
   const [ingredients, setIngredients] = useState({});
@@ -21,6 +23,7 @@ function DetailsReceipe({ match: { params: { id } } }) {
   const whiteHeart = '../images/whiteHeartIcon.svg';
   const [handleFavorite, setHandleFavorite] = useState(whiteHeart);
   const history = useHistory();
+  const [shared, setShared] = useState(false);
 
   useEffect(() => {
     const recipeApi = async () => {
@@ -78,6 +81,16 @@ function DetailsReceipe({ match: { params: { id } } }) {
     }
   }, []);
 
+  const time = 2000;
+  useEffect(() => {
+    if (shared) {
+      copy(`http://localhost:3000/foods/${id}`);
+      setTimeout(() => {
+        setShared(false);
+      }, time);
+    }
+  }, [shared]);
+
   const favorite = () => {
     const objFavorite = {
       id,
@@ -88,7 +101,7 @@ function DetailsReceipe({ match: { params: { id } } }) {
       name: recipe.strMeal,
       image: recipe.strMealThumb,
     };
-    const recipesFavorite = getSavedCartItems('favoriteRecipes');
+    const recipesFavorite = getSavedInLocalStorage('favoriteRecipes');
     if (recipesFavorite === null) {
       saveLocalStorage('favoriteRecipes', [objFavorite]);
       setHandleFavorite(blackHeart);
@@ -113,7 +126,18 @@ function DetailsReceipe({ match: { params: { id } } }) {
         alt={ recipe.strMeal }
       />
       <h2 data-testid="recipe-title">{recipe.strMeal}</h2>
-      <button data-testid="share-btn" type="button">Share</button>
+      <button
+        data-testid="share-btn"
+        type="button"
+        onClick={ () => setShared(true) }
+      >
+        Share
+      </button>
+      {shared && (
+        <p>
+          Link copied!
+        </p>
+      )}
       <button
         src={ handleFavorite }
         data-testid="favorite-btn"
