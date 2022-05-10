@@ -4,6 +4,7 @@ import Footer from '../components/Footer';
 import AppContext from '../contexts/AppContext';
 import { getFoodByNationality, getFoods } from '../services/index';
 import CardFood from '../components/CardFood';
+import '../style/FoodsNationalities.css';
 
 function FoodsNationalities() {
   const { areaList, setRecipesReturn } = useContext(AppContext);
@@ -24,8 +25,9 @@ function FoodsNationalities() {
   return (
     <div>
       <Header title="Explore Nationalities" haveSearch="true" />
-      <div>
+      <div className="conteiner-nacio">
         <select
+          className="form-select"
           data-testid="explore-by-nationality-dropdown"
           value={ nationality }
           onChange={ handleChange }

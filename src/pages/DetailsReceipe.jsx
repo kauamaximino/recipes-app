@@ -41,7 +41,7 @@ function DetailsReceipe({ match: { params: { id } } }) {
     };
     recipeApi();
   }, []);
-  
+
   useEffect(() => {
     const firstRender = async () => {
       const response = await getDrinks();
@@ -113,44 +113,69 @@ function DetailsReceipe({ match: { params: { id } } }) {
     }
   };
   return (
-    <div>
+    <div className="conteiner-geral">
       <img
+        className="img-details img-thumbnail"
         src={ recipe.strMealThumb }
         data-testid="recipe-photo"
         alt={ recipe.strMeal }
       />
-      <h2 data-testid="recipe-title">{recipe.strMeal}</h2>
-      <button
-        data-testid="share-btn"
-        type="button"
-        onClick={ () => setShared(true) }
-      >
-        Share
-      </button>
-      {shared && (
-        <p>
-          Link copied!
-        </p>
-      )}
-      <button
-        src={ handleFavorite }
-        data-testid="favorite-btn"
-        type="button"
-        onClick={ favorite }
-      >
-        <img
+      <div className="conteiner-details">
+        <h2
+          className="display-3 title-recipe"
+          data-testid="recipe-title"
+        >
+          {recipe.strMeal}
+        </h2>
+        <button
+          className="btn-details"
+          data-testid="share-btn"
+          type="button"
+          onClick={ () => setShared(true) }
+        >
+          Share
+        </button>
+        {shared && (
+          <p>
+            Link copied!
+          </p>
+        )}
+        <button
+          className="btn-details"
           src={ handleFavorite }
-          alt="favorite"
-        />
-      </button>
-      <h3 data-testid="recipe-category">{recipe.strCategory}</h3>
-      {Object.values(ingredients).map((ingredient, i) => (
-        <p key={ i } data-testid={ `${i}-ingredient-name-and-measure` }>
-          {`${ingredient} - ${measure[i]}`}
-        </p>
-      ))}
-      <p data-testid="instructions">{recipe.strInstructions}</p>
-      <video data-testid="video" width="320" height="240" controls>
+          data-testid="favorite-btn"
+          type="button"
+          onClick={ favorite }
+        >
+          <img
+            src={ handleFavorite }
+            alt="favorite"
+          />
+        </button>
+      </div>
+
+      <div>
+        <h3
+          className="display-8 title-category"
+          data-testid="recipe-category"
+        >
+          {recipe.strCategory}
+        </h3>
+        <p className="display-6 title-ingredients">Ingredients</p>
+        <div className="conteiner-ingredients">
+          {Object.values(ingredients).map((ingredient, i) => (
+            <li key={ i } data-testid={ `${i}-ingredient-name-and-measure` }>
+              {`${ingredient} - ${measure[i]}`}
+            </li>
+          ))}
+        </div>
+      </div>
+      <p className="display-6 title-ingredients">Instructions</p>
+      <div className="conteiner-ingredients">
+        <p data-testid="instructions">{recipe.strInstructions}</p>
+      </div>
+      <p className="display-6 title-ingredients">Video</p>
+      <video className="video" data-testid="video" width="320" height="240" controls>
         <source src={ recipe.strYoutube } type="video/mp4" />
         <track kind="captions" src={ recipe.strYoutube } />
       </video>

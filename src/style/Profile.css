@@ -21,4 +21,19 @@
     margin-top: 10px;
     width: 329px;
   }
+
+  .link-surprise {
+    align-items: flex-end;
+    background-color: #f4a261;
+    border: none;
+    border-radius: 5px;
+    color: #1d3557;
+    display: flex;
+    height: 53px;
+    justify-content: center;
+    margin-left: 16px;
+    margin-top: 10px;
+    text-decoration: none;
+    width: 329px;
+  }
 }

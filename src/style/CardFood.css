@@ -1,12 +1,11 @@
 @media ( max-width : 640px ) {
 
   .img-food {
-    border-radius: 10px;
+    border-radius: 10px 10px 0 0;
     width: 100px;
   }
 
   .conteiner-food {
-    border-radius: 10px;
     display: flex;
     flex-wrap: wrap;
     justify-content: space-evenly;

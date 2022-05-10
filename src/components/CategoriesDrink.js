@@ -1,6 +1,7 @@
 import React, { useEffect, useContext } from 'react';
 import { fetchDrinksCategories, filterCategoriesDrinks } from '../services/categoriesAPI';
 import AppContext from '../contexts/AppContext';
+import '../style/CategoriesFoods.css';
 
 function CategoriesDrink() {
   const {
@@ -20,7 +21,7 @@ function CategoriesDrink() {
   }, []);
 
   return (
-    <div>
+    <div className="conteiner-category-food">
       {categoriesDrink && categoriesDrink.slice(0, five).map((category, index) => {
         let dataTest = '';
         if (category.strCategory === 'Shake') {
@@ -28,6 +29,7 @@ function CategoriesDrink() {
         } else dataTest = `${category.strCategory}-category-filter`;
         return (
           <button
+            className="btn-food"
             key={ index }
             type="button"
             data-testid={ dataTest }

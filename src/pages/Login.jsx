@@ -20,7 +20,7 @@ const Login = ({ history }) => {
       <h1 className="title display-3">Login</h1>
       <div className="conteiner">
         <input
-          className="form-control"
+          className="input-login"
           type="email"
           placeholder="Email"
           data-testid="email-input"
@@ -28,7 +28,7 @@ const Login = ({ history }) => {
           onChange={ ({ target: { value } }) => setEmail(value) }
         />
         <input
-          className="form-control"
+          className="input-login"
           type="password"
           placeholder="Password"
           data-testid="password-input"
@@ -38,7 +38,7 @@ const Login = ({ history }) => {
       </div>
       <div className="conteiner-btn">
         <button
-          className="btn btn-success btn-lg"
+          className="btn btn-lg btn-enter"
           type="button"
           data-testid="login-submit-btn"
           disabled={ !(regex.test(email) && password.length > six) }

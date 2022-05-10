@@ -6,7 +6,7 @@
     background-color: #219ebc;
     display: flex;
     height: 60px;
-    justify-content: space-around;
+    justify-content: space-evenly;
     left: 0;
     position: fixed;
     top: 0;

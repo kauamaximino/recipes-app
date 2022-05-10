@@ -16,14 +16,19 @@ function RecomendationDrink() {
   }, [cocktailsReturn]);
 
   return (
-    <div className="div-father">
+    <div className="div-father img-thumbnail">
       {cocktailsReturn && cocktailsReturn.slice(0, six).map((recipe, index) => (
         <div
           className="recomendation-card"
           data-testid={ `${index}-recomendation-card` }
           key={ recipe.idDrink }
         >
-          <h1 data-testid={ `${index}-recomendation-title` }>{recipe.strDrink}</h1>
+          <h1
+            className="display-6 title-recomendation"
+            data-testid={ `${index}-recomendation-title` }
+          >
+            {recipe.strDrink}
+          </h1>
           <img
             className="recomendation-card-img"
             src={ recipe.strDrinkThumb }
