@@ -5,6 +5,8 @@ import { getDrinkById } from '../services/index';
 import getSavedInLocalStorage from '../helpers/getLocalStorage';
 import saveLocalStorage from '../helpers/saveLocalStorage';
 
+const copy = require('clipboard-copy');
+
 const DrinksProgress = ({ match: { params: { id } } }) => {
   const [drinkProgress, setDrinkProgress] = useState([]);
   const [ingredients, setIngredients] = useState([]);
@@ -13,6 +15,10 @@ const DrinksProgress = ({ match: { params: { id } } }) => {
   const [loading, setLoading] = useState(true);
   const [buttonDisabled, setButtonDisabled] = useState(true);
   const [changeState, setChangeState] = useState(false);
+  const [shared, setShared] = useState(false);
+  const blackHeart = '../images/blackHeartIcon.svg';
+  const whiteHeart = '../images/whiteHeartIcon.svg';
+  const [handleFavorite, setHandleFavorite] = useState();
 
   useEffect(() => {
     const recipeApi = async () => {
@@ -90,6 +96,54 @@ const DrinksProgress = ({ match: { params: { id } } }) => {
     }
   };
 
+  useEffect(() => {
+    const recipesFavorite = getSavedInLocalStorage('favoriteRecipes');
+    if (recipesFavorite === null || recipesFavorite === undefined) {
+      setHandleFavorite(whiteHeart);
+    } else if (recipesFavorite.includes(id)) {
+      setHandleFavorite(blackHeart);
+    } else {
+      setHandleFavorite(whiteHeart);
+    }
+  }, []);
+
+  const time = 2000;
+  useEffect(() => {
+    if (shared) {
+      copy(`http://localhost:3000/drinks/${id}`);
+      setTimeout(() => {
+        setShared(false);
+      }, time);
+    }
+  }, [shared]);
+
+  const favorite = () => {
+    const objFavorite = {
+      id,
+      type: 'drink',
+      nationality: '',
+      category: drinkProgress.strCategory,
+      alcoholicOrNot: drinkProgress.strAlcoholic,
+      name: drinkProgress.strDrink,
+      image: drinkProgress.strDrinkThumb,
+    };
+    const recipesFavorite = getSavedInLocalStorage('favoriteRecipes');
+    if (recipesFavorite === null) {
+      saveLocalStorage('favoriteRecipes', [objFavorite]);
+      setHandleFavorite(blackHeart);
+    } else if (recipesFavorite.includes(id)) {
+      const PreviousFavorite = JSON.parse(recipesFavorite);
+      const newFavorite = PreviousFavorite.filter((reci) => reci.id !== id);
+      setHandleFavorite(whiteHeart);
+      saveLocalStorage('favoriteRecipes', newFavorite);
+    } else {
+      const previousFavorite = JSON.parse(recipesFavorite);
+      previousFavorite.push(objFavorite);
+      setHandleFavorite(blackHeart);
+      saveLocalStorage('favoriteRecipes', previousFavorite);
+    }
+  };
+
   return (
     <div>
       <img
@@ -98,8 +152,29 @@ const DrinksProgress = ({ match: { params: { id } } }) => {
         alt={ drinkProgress.strDrink }
       />
       <h2 data-testid="recipe-title">{drinkProgress.strDrink}</h2>
-      <button data-testid="share-btn" type="button">Share</button>
-      <button data-testid="favorite-btn" type="button">Favorite</button>
+      <button
+        data-testid="share-btn"
+        type="button"
+        onClick={ () => setShared(true) }
+      >
+        Share
+      </button>
+      {shared && (
+        <p>
+          Link copied!
+        </p>
+      )}
+      <button
+        src={ handleFavorite }
+        data-testid="favorite-btn"
+        type="button"
+        onClick={ favorite }
+      >
+        <img
+          src={ handleFavorite }
+          alt="favorite"
+        />
+      </button>
       <h3 data-testid="recipe-category">{drinkProgress.strAlcoholic}</h3>
       {Object.values(ingredients).map((ingredient, i) => (
         <label
