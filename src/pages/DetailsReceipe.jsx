@@ -8,6 +8,9 @@ import AppContext from '../contexts/AppContext';
 import '../style/Details.css';
 import getSavedInLocalStorage from '../helpers/getLocalStorage';
 import saveLocalStorage from '../helpers/saveLocalStorage';
+import shareIcon from '../images/shareIcon.svg';
+import blackHeart from '../images/blackHeartIcon.svg';
+import whiteHeart from '../images/whiteHeartIcon.svg';
 
 const copy = require('clipboard-copy');
 
@@ -19,11 +22,10 @@ function DetailsReceipe({ match: { params: { id } } }) {
   const [recipeDone, setRecipeDone] = useState([]);
   const [render, setRender] = useState(true);
   const [handleEstate, setHandleEstate] = useState('StartRecipe');
-  const blackHeart = '../images/blackHeartIcon.svg';
-  const whiteHeart = '../images/whiteHeartIcon.svg';
   const [handleFavorite, setHandleFavorite] = useState(whiteHeart);
   const history = useHistory();
   const [shared, setShared] = useState(false);
+
   useEffect(() => {
     const recipeApi = async () => {
       const data = await getFoodById(id);
@@ -51,6 +53,7 @@ function DetailsReceipe({ match: { params: { id } } }) {
     };
     firstRender();
   }, []);
+
   useEffect(() => {
     if (recipeDone === null) {
       setRender(true);
@@ -59,6 +62,7 @@ function DetailsReceipe({ match: { params: { id } } }) {
       setRender(findRecipe);
     }
   }, [recipeDone]);
+
   useEffect(() => {
     const recipesFavorite = getSavedInLocalStorage('favoriteRecipes');
     if (recipesFavorite === null || recipesFavorite === undefined) {
@@ -77,6 +81,7 @@ function DetailsReceipe({ match: { params: { id } } }) {
       setHandleEstate('Start Recipe');
     }
   }, []);
+
   const time = 2000;
   useEffect(() => {
     if (shared) {
@@ -86,6 +91,7 @@ function DetailsReceipe({ match: { params: { id } } }) {
       }, time);
     }
   }, [shared]);
+
   const favorite = () => {
     const objFavorite = {
       id,
@@ -112,6 +118,7 @@ function DetailsReceipe({ match: { params: { id } } }) {
       saveLocalStorage('favoriteRecipes', previousFavorite);
     }
   };
+
   return (
     <div className="conteiner-geral">
       <img
@@ -128,12 +135,12 @@ function DetailsReceipe({ match: { params: { id } } }) {
           {recipe.strMeal}
         </h2>
         <button
-          className="btn-details"
+          className="icon-btn"
           data-testid="share-btn"
           type="button"
           onClick={ () => setShared(true) }
         >
-          Share
+          <img src={ shareIcon } alt="share" />
         </button>
         {shared && (
           <p>
@@ -141,7 +148,7 @@ function DetailsReceipe({ match: { params: { id } } }) {
           </p>
         )}
         <button
-          className="btn-details"
+          className="icon-btn"
           src={ handleFavorite }
           data-testid="favorite-btn"
           type="button"

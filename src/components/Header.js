@@ -13,10 +13,6 @@ function Header({ title, haveSearch }) {
 
   return (
     <div>
-      <div>
-        {(search)
-        && <Search title={ title } />}
-      </div>
       <header className="conteiner-header">
         <Link to="/profile">
 
@@ -58,6 +54,10 @@ function Header({ title, haveSearch }) {
         }
 
       </header>
+      <div>
+        {(search)
+        && <Search title={ title } />}
+      </div>
     </div>
   );
 }

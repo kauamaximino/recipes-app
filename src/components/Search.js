@@ -32,7 +32,7 @@ function Search({ title }) {
     <div className="conteiner-search">
       <input
         placeholder="Search Recipe"
-        className="input-group input-search"
+        className="input-search"
         type="text"
         data-testid="search-input"
         onChange={ ({ target: { value } }) => setInputSearch(value) }

@@ -4,6 +4,10 @@ import { Link } from 'react-router-dom';
 import { getDrinkById } from '../services/index';
 import getSavedInLocalStorage from '../helpers/getLocalStorage';
 import saveLocalStorage from '../helpers/saveLocalStorage';
+import blackHeart from '../images/blackHeartIcon.svg';
+import whiteHeart from '../images/whiteHeartIcon.svg';
+import shareIcon from '../images/shareIcon.svg';
+import '../style/Details.css';
 
 const copy = require('clipboard-copy');
 
@@ -16,9 +20,8 @@ const DrinksProgress = ({ match: { params: { id } } }) => {
   const [buttonDisabled, setButtonDisabled] = useState(true);
   const [changeState, setChangeState] = useState(false);
   const [shared, setShared] = useState(false);
-  const blackHeart = '../images/blackHeartIcon.svg';
-  const whiteHeart = '../images/whiteHeartIcon.svg';
   const [handleFavorite, setHandleFavorite] = useState();
+
   useEffect(() => {
     const recipeApi = async () => {
       const data = await getDrinkById(id);
@@ -39,7 +42,7 @@ const DrinksProgress = ({ match: { params: { id } } }) => {
         const { cocktails } = JSON.parse(returnLS);
         const checks = document.querySelectorAll('input');
         checks.forEach((check) => {
-          if (cocktails[id].includes(check.value)) {
+          if (cocktails[id]?.includes(check.value)) {
             check.checked = true;
           } else {
             check.checked = false;
@@ -49,6 +52,7 @@ const DrinksProgress = ({ match: { params: { id } } }) => {
     };
     recipeApi();
   }, []);
+
   useEffect(() => {
     const ingredientCheck = getSavedInLocalStorage('inProgressRecipes');
     if (!loading && ingredientCheck) {
@@ -60,8 +64,8 @@ const DrinksProgress = ({ match: { params: { id } } }) => {
         setButtonDisabled(true);
       }
     }
-  },
-  [loading, changeState, id]);
+  }, [loading, changeState, id]);
+
   const setIngredientsLocalStorage = ({ target: { value } }) => {
     const findIng = ingredientsUse.find((ing) => ing === value);
     if (!findIng) {
@@ -92,6 +96,7 @@ const DrinksProgress = ({ match: { params: { id } } }) => {
       }
     }
   };
+
   useEffect(() => {
     const recipesFavorite = getSavedInLocalStorage('favoriteRecipes');
     if (recipesFavorite === null || recipesFavorite === undefined) {
@@ -102,6 +107,7 @@ const DrinksProgress = ({ match: { params: { id } } }) => {
       setHandleFavorite(whiteHeart);
     }
   }, []);
+
   const time = 2000;
   useEffect(() => {
     if (shared) {
@@ -111,6 +117,7 @@ const DrinksProgress = ({ match: { params: { id } } }) => {
       }, time);
     }
   }, [shared]);
+
   const favorite = () => {
     const objFavorite = {
       id,
@@ -137,61 +144,95 @@ const DrinksProgress = ({ match: { params: { id } } }) => {
       saveLocalStorage('favoriteRecipes', previousFavorite);
     }
   };
+
   return (
-    <div>
+    <div className="conteiner-geral">
       <img
+        className="img-details img-thumbnail"
         src={ drinkProgress.strDrinkThumb }
         data-testid="recipe-photo"
         alt={ drinkProgress.strDrink }
       />
-      <h2 data-testid="recipe-title">{drinkProgress.strDrink}</h2>
-      <button
-        data-testid="share-btn"
-        type="button"
-        onClick={ () => setShared(true) }
-      >
-        Share
-      </button>
-      {shared && (
-        <p>
-          Link copied!
-        </p>
-      )}
-      <button
-        src={ handleFavorite }
-        data-testid="favorite-btn"
-        type="button"
-        onClick={ favorite }
-      >
-        <img
-          src={ handleFavorite }
-          alt="favorite"
-        />
-      </button>
-      <h3 data-testid="recipe-category">{drinkProgress.strAlcoholic}</h3>
-      {Object.values(ingredients).map((ingredient, i) => (
-        <label
-          htmlFor="checkbox"
-          key={ i }
-          data-testid={ `${i}-ingredient-step` }
+      <div className="conteiner-details">
+
+        <h2
+          className="display-3 title-recipe"
+          data-testid="recipe-title"
         >
-          <input
-            type="checkbox"
-            name="checkbox"
-            value={ ingredient }
-            onClick={ (event) => {
-              setIngredientsLocalStorage(event);
-              setChangeState(!changeState);
-            } }
+          {drinkProgress.strDrink}
+
+        </h2>
+        <button
+          className="icon-btn"
+          data-testid="share-btn"
+          type="button"
+          onClick={ () => setShared(true) }
+        >
+          <img src={ shareIcon } alt="share" />
+        </button>
+        {shared && (
+          <p>
+            Link copied!
+          </p>
+        )}
+        <button
+          className="icon-btn"
+          src={ handleFavorite }
+          data-testid="favorite-btn"
+          type="button"
+          onClick={ favorite }
+        >
+          <img
+            src={ handleFavorite }
+            alt="favorite"
           />
-          {`${ingredient} - ${measure[i]}`}
-        </label>
-      ))}
-      <p data-testid="instructions">{drinkProgress.strInstructions}</p>
+        </button>
+      </div>
+      <h3
+        className="display-8 title-category"
+        data-testid="recipe-category"
+      >
+        {drinkProgress.strAlcoholic}
+
+      </h3>
+      <p className="display-6 title-ingredients">Ingredients</p>
+      <div className="form-check d-flex flex-column conteiner-ingredients">
+
+        {Object.values(ingredients).map((ingredient, i) => (
+          <label
+            htmlFor="checkbox"
+            key={ i }
+            data-testid={ `${i}-ingredient-step` }
+          >
+            <input
+              type="checkbox"
+              name="checkbox"
+              value={ ingredient }
+              onClick={ (event) => {
+                setIngredientsLocalStorage(event);
+                setChangeState(!changeState);
+              } }
+            />
+            {`${ingredient} - ${measure[i]}`}
+          </label>
+        ))}
+      </div>
+      <p className="display-6 title-ingredients">Instructions</p>
+      <div className="conteiner-ingredients">
+        <p
+          className="text-justify"
+          data-testid="instructions"
+        >
+          {drinkProgress.strInstructions}
+
+        </p>
+
+      </div>
       <Link
         to="/done-recipes"
       >
         <button
+          className="button-start"
           data-testid="finish-recipe-btn"
           type="button"
           disabled={ buttonDisabled }

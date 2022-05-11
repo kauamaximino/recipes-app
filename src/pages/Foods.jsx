@@ -8,10 +8,10 @@ function Foods() {
   return (
     <div>
       <Header title="Foods" haveSearch="true" />
-      <div>
+      <main>
         <CategoriesFood />
         <CardFood />
-      </div>
+      </main>
       <Footer />
     </div>
   );

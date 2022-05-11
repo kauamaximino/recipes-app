@@ -18,7 +18,7 @@ const Login = ({ history }) => {
   return (
     <div>
       <h1 className="title display-3">Login</h1>
-      <div className="conteiner">
+      <form className="conteiner">
         <input
           className="input-login"
           type="email"
@@ -35,7 +35,7 @@ const Login = ({ history }) => {
           value={ password }
           onChange={ ({ target: { value } }) => setPassword(value) }
         />
-      </div>
+      </form>
       <div className="conteiner-btn">
         <button
           className="btn btn-lg btn-enter"
