@@ -1,5 +1,5 @@
 import React, { useContext, useEffect } from 'react';
-import { useHistory } from 'react-router-dom';
+import { useHistory, Link } from 'react-router-dom';
 import AppContext from '../contexts/AppContext';
 import '../style/CardFood.css';
 
@@ -19,27 +19,37 @@ function CardDrink() {
       global.alert('Sorry, we haven\'t found any recipes for these filters.');
     }
   }, [cocktailsReturn]);
+
   return (
     <div className="conteiner-food">
       {cocktailsReturn && cocktailsReturn.slice(0, twelve).map((drink, index) => (
-        <div
-          className="shadow border food-card"
-          data-testid={ `${index}-recipe-card` }
+        <Link
           key={ drink.idDrink }
+          to={ `/drinks/${drink.idDrink}` }
+          className="link-decoration"
         >
-          <img
-            className="img-food"
-            src={ drink.strDrinkThumb }
-            alt={ drink.strDrink }
-            data-testid={ `${index}-card-img` }
-          />
-          <p
-            data-testid={ `${index}-card-name` }
-            className="name-food"
+          <div
+            className="shadow border food-card"
+            data-testid={ `${index}-recipe-card` }
           >
-            {drink.strDrink}
-          </p>
-        </div>
+            <figure className="div-img">
+              <img
+                className="img-food"
+                src={ drink.strDrinkThumb }
+                alt={ drink.strDrink }
+                data-testid={ `${index}-card-img` }
+              />
+
+            </figure>
+            <p
+              data-testid={ `${index}-card-name` }
+              className="name-food"
+            >
+              {drink.strDrink}
+            </p>
+          </div>
+
+        </Link>
       ))}
     </div>
   );

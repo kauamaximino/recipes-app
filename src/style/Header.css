@@ -3,7 +3,7 @@
   .conteiner-header {
     align-items: center;
     background: #d4d4d4;
-    background-color: #219ebc;
+    background-color: #34b9d3;
     display: flex;
     height: 60px;
     justify-content: space-evenly;
@@ -11,10 +11,11 @@
     position: fixed;
     top: 0;
     width: 360px;
+    z-index: 4;
   }
 
   .icon-profile-search {
-    background-color: #219ebc;
+    background-color: #34b9d3;
     border: none;
   }
 

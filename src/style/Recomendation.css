@@ -1,7 +1,7 @@
 @media ( max-width : 640px ) {
 
   .div-father {
-    overflow: auto;
+    overflow: scroll;
     white-space: nowrap;
   }
 
@@ -10,15 +10,18 @@
     padding-left: 5px;
     text-align: center;
     text-decoration: none;
-    width: 50%;
+    width: 340px;
   }
 
   .recomendation-card-img {
+    border-radius: 10px;
     height: auto;
-    width: 100%;
+    width: 200px;
   }
 
   .title-recomendation {
     color: #1d3557;
+    margin-bottom: 5px;
+    margin-left: 5px;
   }
 }

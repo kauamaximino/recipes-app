@@ -32,12 +32,15 @@ function CardFood() {
             className="shadow border food-card"
             data-testid={ `${index}-recipe-card` }
           >
-            <img
-              className="img-food"
-              src={ recipe.strMealThumb }
-              alt={ recipe.strMeal }
-              data-testid={ `${index}-card-img` }
-            />
+            <figure className="div-img">
+
+              <img
+                className="img-food"
+                src={ recipe.strMealThumb }
+                alt={ recipe.strMeal }
+                data-testid={ `${index}-card-img` }
+              />
+            </figure>
             <p
               className="name-food"
               data-testid={ `${index}-card-name` }

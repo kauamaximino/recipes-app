@@ -2,7 +2,7 @@
 
   .img-food {
     border-radius: 10px 10px 0 0;
-    width: 100px;
+    max-width: 100%;
   }
 
   .conteiner-food {
@@ -10,11 +10,14 @@
     flex-wrap: wrap;
     justify-content: space-evenly;
     margin-top: 10px;
+
   }
 
   .food-card {
     border-radius: 10px;
+    height: auto;
     margin-bottom: 15px;
+    width: 160px;
   }
 
   .name-food {
@@ -24,5 +27,9 @@
 
   .link-decoration {
     text-decoration: none;
+  }
+
+  figure {
+    text-align: center;
   }
 }

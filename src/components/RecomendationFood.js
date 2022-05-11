@@ -16,14 +16,20 @@ function RecomendationFood() {
   }, [recipesReturn]);
 
   return (
-    <div className="div-father">
+    <div className="div-father img-thumbnail">
       {recipesReturn && recipesReturn.slice(0, six).map((recipe, index) => (
         <div
           className="recomendation-card"
           data-testid={ `${index}-recomendation-card` }
           key={ recipe.idMeal }
         >
-          <h1 data-testid={ `${index}-recomendation-title` }>{recipe.strMeal}</h1>
+          <h1
+            className="display-6 title-recomendation"
+            data-testid={ `${index}-recomendation-title` }
+          >
+            {recipe.strMeal}
+
+          </h1>
           <img
             className="recomendation-card-img"
             src={ recipe.strMealThumb }

@@ -8,6 +8,9 @@ import AppContext from '../contexts/AppContext';
 import '../style/Details.css';
 import getSavedInLocalStorage from '../helpers/getLocalStorage';
 import saveLocalStorage from '../helpers/saveLocalStorage';
+import blackHeart from '../images/blackHeartIcon.svg';
+import whiteHeart from '../images/whiteHeartIcon.svg';
+import shareIcon from '../images/shareIcon.svg';
 
 const copy = require('clipboard-copy');
 
@@ -19,11 +22,10 @@ function DetailsDrink({ match: { params: { id } } }) {
   const [recipeDone, setRecipeDone] = useState([]);
   const [render, setRender] = useState(true);
   const [handleEstate, setHandleEstate] = useState('');
-  const blackHeart = '../images/blackHeartIcon.svg';
-  const whiteHeart = '../images/whiteHeartIcon.svg';
   const [handleFavorite, setHandleFavorite] = useState(whiteHeart);
   const history = useHistory();
   const [shared, setShared] = useState(false);
+
   useEffect(() => {
     const recipeApi = async () => {
       const data = await getDrinkById(id);
@@ -41,6 +43,7 @@ function DetailsDrink({ match: { params: { id } } }) {
     };
     recipeApi();
   }, []);
+
   useEffect(() => {
     const firstRender = async () => { /* eslint-disable react-hooks/exhaustive-deps */
       const response = await getFoods();
@@ -50,6 +53,7 @@ function DetailsDrink({ match: { params: { id } } }) {
     };
     firstRender();
   }, []);
+
   useEffect(() => {
     if (recipeDone === null) {
       setRender(true);
@@ -58,6 +62,7 @@ function DetailsDrink({ match: { params: { id } } }) {
       setRender(findRecipe);
     }
   }, [recipeDone]);
+
   useEffect(() => {
     const recipesFavorite = getSavedInLocalStorage('favoriteRecipes');
     if (recipesFavorite === null || recipesFavorite === undefined) {
@@ -76,6 +81,7 @@ function DetailsDrink({ match: { params: { id } } }) {
       setHandleEstate('Start Recipe');
     }
   }, []);
+
   const time = 2000;
   useEffect(() => {
     if (shared) {
@@ -85,6 +91,7 @@ function DetailsDrink({ match: { params: { id } } }) {
       }, time);
     }
   }, [shared]);
+
   const favorite = () => {
     const objFavorite = {
       id,
@@ -112,45 +119,73 @@ function DetailsDrink({ match: { params: { id } } }) {
     }
   };
   return (
-    <div>
+    <div className="conteiner-geral">
       {handleEstate.length > 0 && (
         <div>
           <img
+            className="img-details img-thumbnail"
             src={ recipe.strDrinkThumb }
             data-testid="recipe-photo"
             alt={ recipe.strDrink }
           />
-          <h2 data-testid="recipe-title">{recipe.strDrink}</h2>
-          <button
-            data-testid="share-btn"
-            type="button"
-            onClick={ () => setShared(true) }
-          >
-            Share
-          </button>
-          {shared && (
-            <p>
-              Link copied!
-            </p>
-          )}
-          <button
-            src={ handleFavorite }
-            data-testid="favorite-btn"
-            type="button"
-            onClick={ favorite }
-          >
-            <img
+          <div className="conteiner-details">
+            <h2
+              className="display-3 title-recipe"
+              data-testid="recipe-title"
+            >
+              {recipe.strDrink}
+
+            </h2>
+            <button
+              className="icon-btn"
+              data-testid="share-btn"
+              type="button"
+              onClick={ () => setShared(true) }
+            >
+              <img src={ shareIcon } alt="share" />
+            </button>
+            {shared && (
+              <p>
+                Link copied!
+              </p>
+            )}
+            <button
+              className="icon-btn"
               src={ handleFavorite }
-              alt="favorite"
-            />
-          </button>
-          <h3 data-testid="recipe-category">{recipe.strAlcoholic}</h3>
-          {Object.values(ingredients).map((ingredient, i) => (
-            <p key={ i } data-testid={ `${i}-ingredient-name-and-measure` }>
-              {`${ingredient} - ${measure[i]}`}
-            </p>
-          ))}
-          <p data-testid="instructions">{recipe.strInstructions}</p>
+              data-testid="favorite-btn"
+              type="button"
+              onClick={ favorite }
+            >
+              <img
+                src={ handleFavorite }
+                alt="favorite"
+              />
+            </button>
+
+          </div>
+          <div>
+            <h3
+              className="display-8 title-category"
+              data-testid="recipe-category"
+            >
+              {recipe.strAlcoholic}
+
+            </h3>
+            <p className="display-6 title-ingredients">Ingredients</p>
+            <div className="conteiner-ingredients">
+              {Object.values(ingredients).map((ingredient, i) => (
+                <p key={ i } data-testid={ `${i}-ingredient-name-and-measure` }>
+                  {`${ingredient} - ${measure[i]}`}
+                </p>
+              ))}
+
+            </div>
+
+          </div>
+          <p className="display-6 title-ingredients">Instructions</p>
+          <div className="conteiner-ingredients">
+            <p data-testid="instructions">{recipe.strInstructions}</p>
+          </div>
           <RecomendationFood />
           {render && (
             <button

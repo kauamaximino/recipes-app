@@ -4,6 +4,9 @@ import { Link } from 'react-router-dom';
 import { getFoodById } from '../services/index';
 import getSavedInLocalStorage from '../helpers/getLocalStorage';
 import saveLocalStorage from '../helpers/saveLocalStorage';
+import blackHeart from '../images/blackHeartIcon.svg';
+import whiteHeart from '../images/whiteHeartIcon.svg';
+import shareIcon from '../images/shareIcon.svg';
 import '../style/Details.css';
 
 const copy = require('clipboard-copy');
@@ -17,8 +20,7 @@ const FoodsProgress = ({ match: { params: { id } } }) => {
   const [buttonDisabled, setButtonDisabled] = useState(true);
   const [changeState, setChangeState] = useState(false);
   const [shared, setShared] = useState(false);
-  const blackHeart = '../images/blackHeartIcon.svg';
-  const whiteHeart = '../images/whiteHeartIcon.svg';
+
   const [handleFavorite, setHandleFavorite] = useState();
   useEffect(() => {
     const recipeApi = async () => {
@@ -40,7 +42,7 @@ const FoodsProgress = ({ match: { params: { id } } }) => {
         const { meals } = JSON.parse(returnLS);
         const checks = document.querySelectorAll('input');
         checks.forEach((check) => {
-          if (meals[id].includes(check.value)) {
+          if (meals[id]?.includes(check.value)) {
             check.checked = true;
           } else {
             check.checked = false;
@@ -50,6 +52,7 @@ const FoodsProgress = ({ match: { params: { id } } }) => {
     };
     recipeApi();
   }, []);
+
   useEffect(() => {
     const ingredientCheck = getSavedInLocalStorage('inProgressRecipes');
     if (!loading && ingredientCheck) {
@@ -61,8 +64,8 @@ const FoodsProgress = ({ match: { params: { id } } }) => {
         setButtonDisabled(true);
       }
     }
-  },
-  [loading, changeState, id]);
+  }, [loading, changeState, id]);
+
   const setIngredientsLocalStorage = ({ target: { value } }) => {
     const findIng = ingredientsUse.find((ing) => ing === value);
     if (!findIng) {
@@ -154,12 +157,12 @@ const FoodsProgress = ({ match: { params: { id } } }) => {
           {mealProgress.strMeal}
         </h2>
         <button
-          className="btn-details"
+          className="icon-btn"
           data-testid="share-btn"
           type="button"
           onClick={ () => setShared(true) }
         >
-          Share
+          <img src={ shareIcon } alt="share" />
         </button>
         {shared && (
           <p>
@@ -167,7 +170,7 @@ const FoodsProgress = ({ match: { params: { id } } }) => {
           </p>
         )}
         <button
-          className="btn-details"
+          className="icon-btn"
           src={ handleFavorite }
           data-testid="favorite-btn"
           type="button"
