@@ -1,7 +1,9 @@
 import React from 'react';
+import { useHistory } from 'react-router-dom';
 import Header from '../components/Header';
 
 function FavRecipes() {
+  const history = useHistory();
   return (
     <div>
 
@@ -13,6 +15,9 @@ function FavRecipes() {
           className="btn-food"
           type="button"
           data-testid="filter-by-all-btn"
+          onClick={ () => {
+            history.push('*');
+          } }
         >
           All
 
@@ -21,6 +26,9 @@ function FavRecipes() {
           className="btn-food"
           type="button"
           data-testid="filter-by-food-btn"
+          onClick={ () => {
+            history.push('*');
+          } }
         >
           Foods
         </button>
@@ -28,6 +36,9 @@ function FavRecipes() {
           className="btn-food"
           type="button"
           data-testid="filter-by-drink-btn"
+          onClick={ () => {
+            history.push('*');
+          } }
         >
           Drinks
         </button>

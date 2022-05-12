@@ -1,0 +1,9 @@
+@media ( max-width : 640px ) {
+
+  .conteiner-logo {
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    margin-top: 50%;
+  }
+}
