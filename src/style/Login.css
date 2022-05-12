@@ -4,6 +4,7 @@
     display: flex;
     flex-direction: column;
     margin-top: 10px;
+    width: 360px;
   }
 
   .form-control {

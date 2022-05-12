@@ -2,7 +2,6 @@ import React, { useContext } from 'react';
 import propTypes from 'prop-types';
 import AppContext from '../contexts/AppContext';
 import saveLocalStorage from '../helpers/saveLocalStorage';
-// import panela from '../images/panela.png';
 import food from '../images/healthy-food (2).png';
 import '../style/Login.css';
 
