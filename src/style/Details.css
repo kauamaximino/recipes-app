@@ -18,20 +18,12 @@
     width: 360px;
   }
 
-  .btn-details {
-    background-color: #f4a261;
-    border: none;
-    border-radius: 5px;
-    color: #1d3557;
-    margin-left: 10px;
-    margin-top: 10px;
-    width: 100px;
-  }
 
   .conteiner-details {
     align-items: flex-start;
     display: flex;
-    justify-content: space-around;
+    justify-content: space-between;
+    margin-left: 10px;
     margin-top: 10px;
   }
 
@@ -50,7 +42,7 @@
   }
 
   .conteiner-ingredients {
-    background-color: #dde6ec;
+    background-color: #a8dadc;
     height: auto;
     margin-bottom: 10px;
     margin-left: 15px;
@@ -76,6 +68,10 @@
     height: 26px;
     margin-top: 10px;
     padding: 5;
-    width: 26px;
+  }
+
+  .conteiner-button {
+    align-items: flex-end;
+    display: flex;
   }
 }

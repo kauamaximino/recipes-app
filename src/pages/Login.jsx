@@ -2,6 +2,8 @@ import React, { useContext } from 'react';
 import propTypes from 'prop-types';
 import AppContext from '../contexts/AppContext';
 import saveLocalStorage from '../helpers/saveLocalStorage';
+// import panela from '../images/panela.png';
+import food from '../images/healthy-food (2).png';
 import '../style/Login.css';
 
 const Login = ({ history }) => {
@@ -17,7 +19,10 @@ const Login = ({ history }) => {
 
   return (
     <div>
-      <h1 className="title display-3">Login</h1>
+      <div className="conteiner-logo">
+        <img className="logo" src={ food } alt="panela" />
+        <h1 className="title display-3">Receitas²</h1>
+      </div>
       <form className="conteiner">
         <input
           className="input-login"
