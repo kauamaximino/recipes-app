@@ -134,31 +134,33 @@ function DetailsReceipe({ match: { params: { id } } }) {
         >
           {recipe.strMeal}
         </h2>
-        <button
-          className="icon-btn"
-          data-testid="share-btn"
-          type="button"
-          onClick={ () => setShared(true) }
-        >
-          <img src={ shareIcon } alt="share" />
-        </button>
-        {shared && (
-          <p>
-            Link copied!
-          </p>
-        )}
-        <button
-          className="icon-btn"
-          src={ handleFavorite }
-          data-testid="favorite-btn"
-          type="button"
-          onClick={ favorite }
-        >
-          <img
+        <div className="conteiner-button">
+          <button
+            className="icon-btn"
+            data-testid="share-btn"
+            type="button"
+            onClick={ () => setShared(true) }
+          >
+            <img src={ shareIcon } alt="share" />
+          </button>
+          {shared && (
+            <p>
+              Link copied!
+            </p>
+          )}
+          <button
+            className="icon-btn"
             src={ handleFavorite }
-            alt="favorite"
-          />
-        </button>
+            data-testid="favorite-btn"
+            type="button"
+            onClick={ favorite }
+          >
+            <img
+              src={ handleFavorite }
+              alt="favorite"
+            />
+          </button>
+        </div>
       </div>
 
       <div>
