@@ -13,7 +13,10 @@ O layout tem como foco dispositivos móveis!
 
 ---
 
-## 🚀 Como executar o projeto
+## 🗣️ Comunicação
+Para o gerenciamento de demandas e controle do que já havia sido desenvolvido, foi utilizado o **[Trello](https://trello.com/)**.
+
+Para as Daily Meetings e comunição no restante do dia foi utilizado o **[Zoom](https://zoom.us/)** e o **[Slack](https://slack.com/intl/pt-br/)**.
 
 ---
 
@@ -55,19 +58,9 @@ Ex de credenciais:
 
 As seguintes ferramentas foram usadas na construção do projeto:
 -  **[React](https://pt-br.reactjs.org/)**
--   **[TypeScript](https://www.typescriptlang.org/)**
--   **[Express](https://expressjs.com/)**
--   **[dotENV](https://github.com/motdotla/dotenv)**
--   **[Docker](https://www.docker.com/)**
--   **[MongoDB](https://www.mongodb.com/)**
--   **[Mongoose](https://mongoosejs.com/)**
--   **[Zod](https://zod.dev/)**
--   **[Mocha](https://mochajs.org/)**
--   **[Chai](https://www.chaijs.com/)**
+-  **[Context API](https://reactjs.org/docs/context.html)**
+-  **[React Hooks](https://reactjs.org/docs/hooks-faq.html#gatsby-focus-wrapper)**
+-  **[CSS](https://developer.mozilla.org/pt-BR/docs/Web/CSS)**
+
 
 > Veja o arquivo [package.json](https://github.com/kauamaximino/recipes-app/blob/main/package.json)
-
----
-## 📝 Licença
-
-O docker-compose do projeto foi disponibilizado pela Trybe.
